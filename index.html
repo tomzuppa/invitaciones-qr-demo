@@ -232,6 +232,33 @@ input.seats{width:66px;padding:6px;text-align:center}
 .stage-acts{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;font-size:12.5px;color:var(--ink-2)}
 .stage-acts select{width:auto}
 .saved{font-size:12.5px;color:var(--good-ink);display:inline-flex;align-items:center;gap:6px}
+.types{padding:14px 18px;margin-bottom:16px;display:grid;gap:12px}
+.types .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.types .lbl{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.types .row .help{margin-left:auto;font-size:12.5px;color:var(--muted)}
+.ty{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-2);background:var(--card);border-radius:99px;padding:6px 13px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
+.ty small{color:var(--muted);font-weight:500;font-size:12px}
+.ty.on{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-soft);color:var(--primary)}
+.ty.add{border-style:dashed;color:var(--primary);background:transparent}
+.tdot{width:10px;height:10px;border-radius:50%;flex:none;display:inline-block;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.tyrow{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2)}
+.tyrow label{display:flex;align-items:center;gap:8px;font-weight:600}
+.tyrow input{width:160px;padding:6px 9px}
+.tyrow input[type=number]{width:66px;text-align:center}
+.tcell{display:inline-flex;align-items:center;gap:8px}
+.gt th,.gt td{padding:10px}
+.gt th:first-child,.gt td:first-child{padding-left:14px}
+.gt td > b,.gt td.mono{white-space:nowrap}
+.gt td.ct{font-size:13px}
+select.tsel{width:auto;padding:6px 8px;font-size:12.5px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:13px;background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.kv span{color:var(--muted)}
+.kv b{font-weight:600;word-break:break-word;display:inline-flex;align-items:center;gap:7px}
+.h2row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.h2row h2{margin:0}
+.segmini{display:inline-flex;background:var(--card-2);border:1px solid var(--line);border-radius:9px;padding:3px}
+.segmini button{border:0;background:none;padding:4px 11px;border-radius:7px;font-size:12px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.segmini button.on{background:var(--card);color:var(--primary);box-shadow:var(--shadow)}
 .phone{width:320px;height:640px;border-radius:44px;background:#0b0f17;padding:12px;box-shadow:0 24px 60px rgba(0,0,0,.35),inset 0 0 0 2px #2a3242;position:relative}
 .phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:90px;height:22px;border-radius:12px;background:#000;z-index:3}
 .phone-scr{width:100%;height:100%;border-radius:34px;overflow:hidden auto;background:#fff;position:relative}
@@ -256,6 +283,7 @@ body.public{background:#0b0f17}
 .rp-hi{font-size:19px}
 .rp-seats{display:flex;justify-content:space-between;align-items:center;background:var(--rp-card);border-radius:12px;padding:13px 15px}
 .rp-seats b{font-size:21px}
+.rp-tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:99px;border:1px solid currentColor;margin-right:8px;vertical-align:1px;opacity:.85}
 .rp-list{display:grid;gap:6px}
 .rp-list div{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;background:rgba(12,163,12,.12);font-weight:600}
 .rp-list div::before{content:"✓";color:#0ca30c;font-weight:800}
@@ -343,6 +371,7 @@ body.lector{background:#05080e}
 .sheet .stt b{display:block;font-size:19px}
 .sheet .stt span{font-size:13px;color:#a9b8cc}
 .sheet h3{font-size:22px}
+.tbadge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:99px;background:#162133;color:#e8eef6;vertical-align:4px;margin-left:8px}
 .sheet .who{color:#a9b8cc;font-size:13.5px}
 .sheet .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .sheet .nums div{background:#162133;border-radius:12px;padding:10px;text-align:center;font-size:11.5px;color:#a9b8cc}
@@ -441,7 +470,7 @@ body.lector{background:#05080e}
 'use strict';
 
 /* =================== Utilidades =================== */
-const KEY = 'atrio_demo_v2', SKEY = 'atrio_session', TKEY = 'atrio_theme';
+const KEY = 'atrio_demo_v3', SKEY = 'atrio_session', TKEY = 'atrio_theme';
 const $ = (s, r) => (r || document).querySelector(s), $$ = (s, r) => [...(r || document).querySelectorAll(s)];
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
@@ -507,7 +536,11 @@ const CSSBG = {
   paper: '#f6f3ec', ivory: '#f3ede3'
 };
 function designFrom(key, over){ const t = TPL[key]; return Object.assign({ tpl: key, host: '', name: '', date: '', time: '', place: '', dress: '', deadline: '', message: '', bg: null, logo: null, bgStyle: t.bg, accent: t.accent, font: t.font, layout: t.layout, text: t.text }, over || {}); }
-function applyTpl(d, key){ const t = TPL[key]; return Object.assign({}, d, { tpl: key, bgStyle: t.bg, accent: t.accent, font: t.font, layout: t.layout, text: t.text }); }
+const tplStyle = key => { const t = TPL[key]; return { tpl: key, bgStyle: t.bg, accent: t.accent, font: t.font, layout: t.layout, text: t.text }; };
+function applyTpl(d, key){ return Object.assign({}, d, tplStyle(key)); }
+// Tipos de invitación: el contenido del evento es de la campaña; cada tipo puede tener su propio estilo
+const STYLE_KEYS = ['tpl', 'bgStyle', 'accent', 'font', 'layout', 'text', 'bg'];
+const typeStyle = key => Object.assign({ bg: null }, tplStyle(key));
 function styleFor(d){ const light = d.text !== 'dark'; let s = d.bgStyle; if (light && (s === 'paper' || s === 'ivory')) s = 'navy'; if (!light && ['court', 'gala', 'navy', 'neon'].includes(s)) s = 'paper'; return s; }
 
 /* =================== Datos de demostración (los mismos en cualquier navegador) =================== */
@@ -518,12 +551,15 @@ function seedState(){
   const rnd = mulberry32(20261017), taken = new Set(), now = Date.now();
   const code = () => { let c; do { c = ''; for (let i = 0; i < 8; i++) c += ALPH[Math.floor(rnd() * ALPH.length)]; } while (taken.has(c)); taken.add(c); return c; };
   const ago = d => new Date(now - d * 864e5).toISOString();
-  const guest = (name, company, group, seats) => { const p = norm(name).split(' '); return { id: uid(), name, email: p[0] + '.' + p[p.length - 1] + '@ejemplo.com', company, group, extra1: '', extra2: '', seats, code: null, activatedAt: null, sentAt: null, redemptions: [], checkins: [] }; };
-  const list = (rows, group, seats) => rows.map(([n, c]) => guest(n, c, group, seats));
+  // Los teléfonos salen de su propia secuencia para no mover los códigos de los pases
+  const prnd = mulberry32(5512), digits = n => [...Array(n)].map(() => Math.floor(prnd() * 10)).join('');
+  const phone = () => '55 ' + digits(4) + ' ' + digits(4);
+  const guest = (name, company, group, seats, typeId) => { const p = norm(name).split(' '); return { id: uid(), name, email: p[0] + '.' + p[p.length - 1] + '@ejemplo.com', phone: phone(), company, group, typeId, extra1: '', extra2: '', seats, code: null, activatedAt: null, sentAt: null, redemptions: [], checkins: [] }; };
+  const list = (rows, group, seats, typeId) => rows.map(([n, c]) => guest(n, c, group, seats, typeId || 'general'));
   const g1 = [].concat(
-    list([['Ana Lucía Torres', 'Grupo Andino'], ['Bernardo Ríos', 'Logística Alfa'], ['Carla Méndez', 'Banca Meridiano'], ['Diego Salinas', 'Bebidas Solaris'], ['Elena Fuentes', 'Telecom Aurora'], ['Fernando Ibarra', 'Constructora Vértice'], ['Gabriela Ochoa', 'Distribuidora Cumbre'], ['Héctor Villalobos', 'Grupo Andino']], 'Patrocinadores', 4),
-    list([['Isabel Cortés', 'Inmobiliaria Brisa'], ['Jorge Navarro', 'Farmacias Delta'], ['Karla Benítez', 'Autos del Bajío'], ['Luis Arriaga', 'Consultores Prisma'], ['Mariana Solís', 'Hoteles Marea'], ['Nicolás Pineda', 'Aceros Titán'], ['Olivia Guerra', 'Moda Lienzo'], ['Pablo Estrada', 'Tecnología Nodo'], ['Regina Lozano', 'Viajes Rumbo'], ['Santiago Duarte', 'Alimentos Valle'], ['Teresa Campos', 'Seguros Faro'], ['Ulises Medina', 'Energía Brío']], 'Clientes VIP', 2),
-    list([['Valeria Robles', 'Revista Cancha'], ['Andrés Quiroga', 'Radio Pulso'], ['Beatriz Montes', 'Medios Horizonte'], ['Carlos Treviño', 'Canal Diez'], ['Daniela Peralta', 'Diario Metrópoli'], ['Emilio Zavala', 'Podcast Rebote'], ['Fernanda Luna', 'Revista Cancha'], ['Gerardo Bravo', 'Portal Marcador']], 'Medios', 1),
+    list([['Ana Lucía Torres', 'Grupo Andino'], ['Bernardo Ríos', 'Logística Alfa'], ['Carla Méndez', 'Banca Meridiano'], ['Diego Salinas', 'Bebidas Solaris'], ['Elena Fuentes', 'Telecom Aurora'], ['Fernando Ibarra', 'Constructora Vértice'], ['Gabriela Ochoa', 'Distribuidora Cumbre'], ['Héctor Villalobos', 'Grupo Andino']], 'Patrocinadores', 4, 'vip'),
+    list([['Isabel Cortés', 'Inmobiliaria Brisa'], ['Jorge Navarro', 'Farmacias Delta'], ['Karla Benítez', 'Autos del Bajío'], ['Luis Arriaga', 'Consultores Prisma'], ['Mariana Solís', 'Hoteles Marea'], ['Nicolás Pineda', 'Aceros Titán'], ['Olivia Guerra', 'Moda Lienzo'], ['Pablo Estrada', 'Tecnología Nodo'], ['Regina Lozano', 'Viajes Rumbo'], ['Santiago Duarte', 'Alimentos Valle'], ['Teresa Campos', 'Seguros Faro'], ['Ulises Medina', 'Energía Brío']], 'Clientes', 2),
+    list([['Valeria Robles', 'Revista Cancha'], ['Andrés Quiroga', 'Radio Pulso'], ['Beatriz Montes', 'Medios Horizonte'], ['Carlos Treviño', 'Canal Diez'], ['Daniela Peralta', 'Diario Metrópoli'], ['Emilio Zavala', 'Podcast Rebote'], ['Fernanda Luna', 'Revista Cancha'], ['Gerardo Bravo', 'Portal Marcador']], 'Medios', 1, 'medios'),
     list([['Hilda Cárdenas', 'Producción'], ['Iván Sandoval', 'Producción'], ['Julia Herrera', 'Logística'], ['Kevin Orozco', 'Hospitalidad']], 'Staff', 1)
   );
   g1.forEach(g => { g.code = code(); g.activatedAt = ago(6); if (g.group !== 'Staff') g.sentAt = ago(5); });
@@ -545,15 +581,17 @@ function seedState(){
     for (let i = 0; i < k; i++) g.redemptions.push({ id: uid(), name: i === 0 ? g.name : COMPANIONS[Math.floor(rnd() * COMPANIONS.length)], email: '', at: ago(30 + rnd() * 7) });
     if (rnd() < .85) g.checkins.push({ id: uid(), n: g.redemptions.length, at: ago(29.1 - rnd() * .1), gate: rnd() < .5 ? 'Puerta A' : 'Puerta B' });
   });
+  const general = seats => ({ id: 'general', name: 'General', seats, style: null });
   return {
-    v: 2, tenantId: 't1', campaignId: 'c1',
+    v: 3, tenantId: 't1', campaignId: 'c1',
     tenants: [{ id: 't1', name: 'Eventos Cumbre', short: 'EC', color: '#1d6fb0' }, { id: 't2', name: 'Fundación Horizonte', short: 'FH', color: '#7c3aed' }],
     campaigns: [
       { id: 'c1', tenantId: 't1', code: 'CTS26', name: 'Noche Courtside 2026', status: 'activa', createdAt: ago(8), guests: g1,
+        types: [general(2), { id: 'vip', name: 'VIP', seats: 4, style: typeStyle('gala') }, { id: 'medios', name: 'Medios', seats: 1, style: typeStyle('ejecutivo') }],
         design: designFrom('courtside', { host: 'Eventos Cumbre te invita a', name: 'Noche Courtside 2026', date: 'Sábado 14 de noviembre', time: '19:00 h', place: 'Arena Ciudad de México', dress: 'Casual elegante', deadline: '7 de noviembre', message: 'Una noche para vivir el juego desde la primera fila.' }) },
-      { id: 'c2', tenantId: 't1', code: 'CEN26', name: 'Cena de Patrocinadores', status: 'borrador', createdAt: ago(2), guests: g2,
+      { id: 'c2', tenantId: 't1', code: 'CEN26', name: 'Cena de Patrocinadores', status: 'borrador', createdAt: ago(2), guests: g2, types: [general(2)],
         design: designFrom('gala', { host: 'Eventos Cumbre tiene el honor de invitarle a la', name: 'Cena de Patrocinadores', date: 'Jueves 3 de diciembre', time: '20:30 h', place: 'Salón Reforma, Ciudad de México', dress: 'Etiqueta', deadline: '25 de noviembre', message: 'Gracias por hacer posible esta temporada.' }) },
-      { id: 'c3', tenantId: 't2', code: 'GAH26', name: 'Gala Anual 2026', status: 'cerrada', createdAt: ago(45), guests: g3,
+      { id: 'c3', tenantId: 't2', code: 'GAH26', name: 'Gala Anual 2026', status: 'cerrada', createdAt: ago(45), guests: g3, types: [general(2)],
         design: designFrom('ejecutivo', { host: 'Fundación Horizonte le invita a su', name: 'Gala Anual 2026', date: 'Viernes 18 de septiembre', time: '19:30 h', place: 'Museo de Arte Moderno', dress: 'Formal', deadline: '10 de septiembre', message: 'Juntos seguimos construyendo oportunidades.' }) }
     ],
     team: {
@@ -565,13 +603,13 @@ function seedState(){
 
 /* =================== Estado =================== */
 function load(){
-  try { const r = localStorage.getItem(KEY); if (r){ const s = JSON.parse(r); if (s && s.v === 2 && Array.isArray(s.campaigns)) return s; } } catch (e){ console.error(e); }
+  try { const r = localStorage.getItem(KEY); if (r){ const s = JSON.parse(r); if (s && s.v === 3 && Array.isArray(s.campaigns)) return s; } } catch (e){ console.error(e); }
   return seedState();
 }
 let S = load();
 function save(){ if (!lsSet(KEY, JSON.stringify(S))){ toast('No se pudo guardar: la imagen es muy pesada. Prueba con una más ligera.', true); return false; } return true; }
 const session = () => { try { return JSON.parse(lsGet(SKEY, 'null')); } catch (e){ return null; } };
-const UI = { q: '', group: '', status: '', sel: new Set(), pv: '', tab: 'plantillas', stage: 'img', menu: null, ai: null, aiTone: 'elegante', aiText: '', aiBusy: false, loginRole: null, newTpl: 'gala' };
+const UI = { q: '', group: '', type: '', status: '', ty: '', by: 'grupo', sel: new Set(), pv: '', tab: 'plantillas', stage: 'img', menu: null, ai: null, aiTone: 'elegante', aiText: '', aiBusy: false, loginRole: null, newTpl: 'gala' };
 const LX = { stream: null, timer: null, lastText: '', lastAt: 0, i: 0, log: [], gate: 'Puerta A', cur: null, n: 1 };
 const R = { flash: '' };
 
@@ -612,14 +650,28 @@ function campCode(name){
 }
 const redeemUrl = code => location.href.split('#')[0] + '#/r/' + code;
 const lectorUrl = () => location.href.split('#')[0] + '#/lector';
-const sampleGuest = c => c.guests.find(g => g.code) || { name: 'Nombre del invitado', seats: 2, code: 'DEMO2026', redemptions: [], checkins: [] };
-const previewGuest = c => c.guests.find(g => g.id === UI.pv && g.code) || sampleGuest(c);
+const types = c => (c.types && c.types.length) ? c.types : (c.types = [{ id: uid(), name: 'General', seats: 1, style: null }]);
+const typeOf = (c, g) => types(c).find(t => t.id === g.typeId) || types(c)[0];
+const editType = c => types(c).find(t => t.id === UI.ty) || types(c)[0];
+const designFor = (c, t) => Object.assign({}, c.design, t && t.style ? t.style : {}, { badge: types(c).length > 1 && t ? t.name : '' });
+const designOf = (c, g) => designFor(c, typeOf(c, g));
+// Lo que se edita en Plantillas y Estilo: el diseño base o el estilo propio del tipo elegido
+function styleTarget(c){
+  const t = editType(c); if (t === types(c)[0]) return c.design;
+  if (!t.style) t.style = STYLE_KEYS.reduce((o, k) => { o[k] = c.design[k]; return o; }, {});
+  return t.style;
+}
+const firstActive = c => c.guests.find(g => g.code);
+const sampleGuest = (c, t) => { t = t || types(c)[0]; return c.guests.find(g => g.code && typeOf(c, g).id === t.id) || { name: 'Nombre del invitado', seats: t.seats, code: 'DEMO2026', typeId: t.id, redemptions: [], checkins: [] }; };
+const previewGuest = c => { const t = editType(c); return c.guests.find(g => g.id === UI.pv && g.code && typeOf(c, g).id === t.id) || sampleGuest(c, t); };
+const typeDot = (c, t) => `<i class="tdot" style="background:${esc(designFor(c, t).accent)}"></i>`;
 
 /* =================== CSV =================== */
 const ALIASES = {
   name: ['nombre', 'name', 'nombre completo', 'invitado'], email: ['correo', 'email', 'e-mail', 'mail', 'correo electronico'],
   company: ['empresa', 'company', 'compania', 'organizacion'], group: ['grupo', 'group', 'categoria'],
-  seats: ['lugares', 'seats', 'pases', 'acompanantes', 'boletos'], extra1: ['campo1', 'campo 1', 'extra1', 'telefono', 'celular'], extra2: ['campo2', 'campo 2', 'extra2', 'notas']
+  seats: ['lugares', 'seats', 'pases', 'acompanantes', 'boletos'], phone: ['telefono', 'celular', 'movil', 'phone', 'tel', 'whatsapp'],
+  type: ['tipo', 'tipo de invitacion', 'tipo invitacion', 'type'], extra1: ['campo1', 'campo 1', 'extra1'], extra2: ['campo2', 'campo 2', 'extra2', 'notas']
 };
 function parseCSV(text){
   text = text.replace(/^﻿/, '');
@@ -643,18 +695,22 @@ function importCSV(text){
   const head = rows[0].map(norm), ix = {};
   Object.keys(ALIASES).forEach(k => { ix[k] = head.findIndex(h => ALIASES[k].includes(h)); });
   if (ix.name < 0) return toast('El CSV necesita una columna "nombre".', true);
-  const emails = new Set(c.guests.map(g => g.email).filter(Boolean)); let added = 0, dup = 0;
+  const emails = new Set(c.guests.map(g => g.email).filter(Boolean)); let added = 0, dup = 0, newTypes = 0;
   rows.slice(1).forEach(r => {
     const v = k => ix[k] >= 0 ? String(r[ix[k]] || '').trim() : '';
     const name = v('name'); if (!name) return;
     const email = v('email').toLowerCase();
     if (email && emails.has(email)){ dup++; return; }
     if (email) emails.add(email);
-    c.guests.push({ id: uid(), name, email, company: v('company'), group: v('group'), extra1: v('extra1'), extra2: v('extra2'), seats: Math.min(20, Math.max(1, parseInt(v('seats'), 10) || 1)), code: null, activatedAt: null, sentAt: null, redemptions: [], checkins: [] });
+    // Un tipo que no existe se crea con el diseño base; luego se personaliza en el estudio
+    const tn = v('type'), seatsIn = parseInt(v('seats'), 10);
+    let t = tn ? types(c).find(x => norm(x.name) === norm(tn)) : types(c)[0];
+    if (!t){ t = { id: uid(), name: tn.slice(0, 24), seats: Math.min(20, Math.max(1, seatsIn || 1)), style: null }; types(c).push(t); newTypes++; }
+    c.guests.push({ id: uid(), name, email, phone: v('phone'), company: v('company'), group: v('group'), typeId: t.id, extra1: v('extra1'), extra2: v('extra2'), seats: Math.min(20, Math.max(1, seatsIn || t.seats)), code: null, activatedAt: null, sentAt: null, redemptions: [], checkins: [] });
     added++;
   });
   save(); render();
-  toast(plural(added, 'invitado cargado', 'invitados cargados') + (dup ? ', ' + plural(dup, 'repetido omitido', 'repetidos omitidos') : ''));
+  toast(plural(added, 'invitado cargado', 'invitados cargados') + (newTypes ? ', ' + plural(newTypes, 'tipo nuevo', 'tipos nuevos') : '') + (dup ? ', ' + plural(dup, 'repetido omitido', 'repetidos omitidos') : ''));
 }
 function downloadBlob(blob, name){
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
@@ -759,7 +815,7 @@ function qrCard(ctx, g, x, y, size, codeColor){
   ctx.font = '700 34px ui-monospace, Consolas, monospace'; ctx.textAlign = 'center'; ctx.fillStyle = codeColor; setSpacing(ctx, 2);
   ctx.fillText(fmtCode(g.code), x + size / 2, y + size + 48); setSpacing(ctx, 0);
 }
-const seatsLine = g => g.seats > 1 ? 'Pase para ' + g.seats + ' personas' : 'Pase individual';
+const seatsLine = (g, d) => (d && d.badge ? d.badge + '  ·  ' : '') + (g.seats > 1 ? 'Pase para ' + g.seats + ' personas' : 'Pase individual');
 async function drawInvitation(cv, g, d, scale){
   scale = scale || 1;
   const W = 1080, H = 1350, tok = (cv._tok = (cv._tok || 0) + 1);
@@ -797,7 +853,7 @@ async function drawInvitation(cv, g, d, scale){
     ctx.fillStyle = '#e5e7eb'; ctx.fillRect(W / 2 - 200, y + 30, 400, 2);
     txt(ctx, 'INVITACIÓN PARA', W / 2, y + 80, { size: 20, weight: 600, color: '#6b7280', spacing: 4 });
     const ns = nameFont(g.name, 760, 52); txt(ctx, g.name, W / 2, y + 136, { size: ns, weight: 800, color: '#111111' });
-    txt(ctx, seatsLine(g), W / 2, y + 182, { size: 27, weight: 700, color: cAcc });
+    txt(ctx, seatsLine(g, d), W / 2, y + 182, { size: 27, weight: 700, color: cAcc, maxW: 760, maxLines: 1 });
     qrCard(ctx, g, (W - 330) / 2, cy + ch - 330 - 92, 330, '#111111');
     txt(ctx, det, W / 2, H - 70 - fo, { size: 24, weight: 600, color: ink, maxW: 960, maxLines: 1 });
     txt(ctx, 'Escanea el código para confirmar tu asistencia', W / 2, H - 32 - fo, { size: 21, weight: 500, color: ink2 });
@@ -812,7 +868,7 @@ async function drawInvitation(cv, g, d, scale){
     const qs = 350, qx = W - 80 - qs, qy = H - 150 - qs - fo;
     txt(ctx, 'INVITACIÓN PARA', 80, qy + 34, { size: 21, weight: 600, color: ink2, spacing: 4, align: 'left' });
     const ns = nameFont(g.name, qx - 130, 52); txt(ctx, g.name, 80, qy + 94, { size: ns, weight: 800, color: ink, align: 'left' });
-    txt(ctx, seatsLine(g), 80, qy + 142, { size: 28, weight: 700, color: accTxt, align: 'left' });
+    txt(ctx, seatsLine(g, d), 80, qy + 142, { size: 28, weight: 700, color: accTxt, align: 'left', maxW: qx - 110, maxLines: 1 });
     qrCard(ctx, g, qx, qy, qs, ink);
     txt(ctx, det, W / 2, H - 66 - fo, { size: 24, weight: 600, color: ink, maxW: 960, maxLines: 1 });
     txt(ctx, 'Escanea el código para confirmar tu asistencia', W / 2, H - 30 - fo, { size: 21, weight: 500, color: ink2 });
@@ -826,7 +882,7 @@ async function drawInvitation(cv, g, d, scale){
     ctx.fillStyle = acc; ctx.fillRect(W / 2 - 55, y + 32, 110, 6);
     txt(ctx, 'INVITACIÓN PARA', W / 2, y + 92, { size: 21, weight: 600, color: ink2, spacing: 5 });
     const ns = nameFont(g.name, 900, 54); txt(ctx, g.name, W / 2, y + 150, { size: ns, weight: 800, color: ink });
-    txt(ctx, seatsLine(g), W / 2, y + 198, { size: 28, weight: 700, color: accTxt });
+    txt(ctx, seatsLine(g, d), W / 2, y + 198, { size: 28, weight: 700, color: accTxt, maxW: 900, maxLines: 1 });
     const qs = Math.max(300, Math.min(370, (H - 168 - fo) - (y + 198 + 36))); qrCard(ctx, g, (W - qs) / 2, H - qs - 168 - fo, qs, ink);
     txt(ctx, det, W / 2, H - 70 - fo, { size: 24, weight: 600, color: ink, maxW: 960, maxLines: 1 });
     txt(ctx, 'Escanea el código para confirmar tu asistencia', W / 2, H - 32 - fo, { size: 21, weight: 500, color: ink2 });
@@ -835,7 +891,7 @@ async function drawInvitation(cv, g, d, scale){
 }
 const fileName = g => norm(g.name).replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '') + '_' + g.code + '.png';
 async function downloadOne(c, g){
-  const cv = await drawInvitation(document.createElement('canvas'), g, c.design);
+  const cv = await drawInvitation(document.createElement('canvas'), g, designOf(c, g));
   downloadBlob(await new Promise(r => cv.toBlob(r, 'image/png')), fileName(g));
   if (!g.sentAt){ g.sentAt = new Date().toISOString(); save(); }
 }
@@ -845,7 +901,7 @@ async function downloadZip(c, list){
   if (list.length === 1){ await downloadOne(c, list[0]); render(); return toast('Invitación descargada y marcada como enviada'); }
   toast('Generando ' + list.length + ' invitaciones…');
   const zip = new JSZip(), cv = document.createElement('canvas');
-  for (const g of list){ await drawInvitation(cv, g, c.design); zip.file(fileName(g), await new Promise(r => cv.toBlob(r, 'image/png'))); }
+  for (const g of list){ await drawInvitation(cv, g, designOf(c, g)); zip.file(fileName(g), await new Promise(r => cv.toBlob(r, 'image/png'))); }
   downloadBlob(await zip.generateAsync({ type: 'blob' }), c.code + '_invitaciones.zip');
   const now = new Date().toISOString(); list.forEach(g => { if (!g.sentAt) g.sentAt = now; });
   save(); render(); toast(plural(list.length, 'invitación descargada', 'invitaciones descargadas') + ' en ZIP y marcadas como enviadas');
@@ -853,7 +909,7 @@ async function downloadZip(c, list){
 
 /* =================== Página del invitado =================== */
 function redeemInner(c, g, preview){
-  const d = c.design, light = d.text !== 'dark', s = styleFor(d), F = FONTS[d.font] || FONTS.sans;
+  const d = designOf(c, g), light = d.text !== 'dark', s = styleFor(d), F = FONTS[d.font] || FONTS.sans;
   const headBg = d.bg ? `background-image:url(${d.bg})` : `background:${CSSBG[s]}`;
   const headInk = d.bg || light ? '#fff' : '#151515';
   const acc = d.accent || '#ff7a1a', btnBg = lum(acc) > .7 ? '#151515' : acc;
@@ -868,7 +924,7 @@ function redeemInner(c, g, preview){
     ${flash ? `<div class="rp-ok"><big>✓</big>Listo, ${esc(flash)}. Tu lugar está confirmado.<div class="acts" style="justify-content:center"><button class="btn sm" data-act="ics" data-code="${g.code}">Agregar a mi calendario</button>${session() ? `<a class="btn sm" href="#/app/metricas" data-act="goCamp" data-id="${c.id}">Demo: ver el tablero</a>` : ''}</div></div>` : ''}
     <p class="rp-hi">${u ? 'Pase de' : 'Hola,'} <b>${esc(u ? g.name : first(g.name))}</b></p>
     ${d.message ? `<p style="color:var(--rp-ink2);font-size:14px;margin-top:-6px">${esc(d.message)}</p>` : ''}
-    <div class="rp-seats"><span>${g.seats > 1 ? 'Tu pase es para ' + g.seats + ' personas' : 'Pase individual'}</span><span>Quedan <b class="num">${l}</b></span></div>
+    <div class="rp-seats"><span>${d.badge ? `<span class="rp-tag">${esc(d.badge)}</span>` : ''}${g.seats > 1 ? 'Tu pase es para ' + g.seats + ' personas' : 'Pase individual'}</span><span>Quedan <b class="num">${l}</b></span></div>
     ${u ? `<div class="rp-list">${g.redemptions.map(r => `<div>${esc(r.name)}</div>`).join('')}</div>` : ''}
     ${l > 0 ? `<form class="rp-form" ${preview ? 'onsubmit="return false"' : `data-form="redeem" data-code="${g.code}"`}>
         <label class="f">Nombre de quien asiste<input name="n" required maxlength="80" value="${u ? '' : esc(g.name)}" autocomplete="name"${pv}></label>
@@ -945,7 +1001,7 @@ function shell(view, body){
   </aside>
   <div class="main">
     <header class="mhead"><div class="crumbs">${esc(t.name)}${view !== 'panorama' && view !== 'equipo' && c ? ` <span>/</span> ${esc(c.name)}` : ''} <span>/</span> <b>${NAV[view][2]}</b></div>
-      <div class="mhead-acts"><span class="pill demo">Modo demo</span><button class="btn ghost sm" data-act="reset">Reiniciar demo</button>${c && c.guests.some(g => g.code) ? `<a class="btn sm" href="#/r/${sampleGuest(c).code}" target="_blank" rel="noopener">${ico('eye')}Vista del invitado</a>` : ''}<a class="btn sm" href="#/lector">${ico('scan')}Abrir lector</a></div></header>
+      <div class="mhead-acts"><span class="pill demo">Modo demo</span><button class="btn ghost sm" data-act="reset">Reiniciar demo</button>${c && firstActive(c) ? `<a class="btn sm" href="#/r/${firstActive(c).code}" target="_blank" rel="noopener">${ico('eye')}Vista del invitado</a>` : ''}<a class="btn sm" href="#/lector">${ico('scan')}Abrir lector</a></div></header>
     <main class="wrap">${body}</main>
   </div></div>`;
 }
@@ -978,20 +1034,32 @@ const LAYOUTS = [
 ];
 function viewEstudio(){
   const c = camp(); if (!c) return emptyCamps();
-  const d = c.design, act = c.guests.filter(g => g.code), pg = previewGuest(c);
+  const T = types(c), et = editType(c), isBase = et === T[0], multi = T.length > 1;
+  const d = designFor(c, et), act = c.guests.filter(g => g.code && typeOf(c, g).id === et.id), pg = previewGuest(c);
+  const forType = multi ? ` del tipo <b>${esc(et.name)}</b>` : '';
   const tabs = [['plantillas', 'layers', 'Plantillas'], ['contenido', 'text', 'Contenido'], ['estilo', 'palette', 'Estilo'], ['ia', 'spark', 'Con IA']];
+  const typesBar = `<div class="card types">
+    <div class="row"><span class="lbl">Tipos de invitación</span>
+      ${T.map(t => `<button class="ty${t.id === et.id ? ' on' : ''}" data-act="tyPick" data-id="${t.id}">${typeDot(c, t)}${esc(t.name)}<small>${c.guests.filter(g => typeOf(c, g).id === t.id).length}</small></button>`).join('')}
+      <button class="ty add" data-act="tyNew">+ Nuevo tipo</button>
+      <span class="help">Cada tipo tiene su propio diseño y sus lugares. El contenido del evento es el mismo para todos.</span></div>
+    <div class="tyrow"><span>Diseñando: <b>${esc(et.name)}</b>${isBase ? ' (diseño base)' : ''}</span>
+      <label>Nombre <input data-chg="tyName" value="${esc(et.name)}" maxlength="24"></label>
+      <label>Lugares por pase <input type="number" min="1" max="20" data-chg="tySeats" value="${et.seats}"></label>
+      ${isBase ? '' : '<button class="link" data-act="tyDel">Eliminar tipo</button>'}</div></div>`;
   let tb = '';
   if (UI.tab === 'plantillas'){
-    tb = `<p class="help">Elige un punto de partida. Tus textos e imágenes se conservan.</p><div class="tpls">${Object.entries(TPL).map(([k, t]) => `<button class="tpl${d.tpl === k ? ' on' : ''}" data-act="tpl" data-k="${k}"><canvas data-tpl="${k}" width="216" height="270" aria-hidden="true"></canvas><b>${t.name}</b><small>${t.desc}</small></button>`).join('')}</div>`;
+    tb = `<p class="help">Elige un punto de partida${forType}. Tus textos e imágenes se conservan.</p><div class="tpls">${Object.entries(TPL).map(([k, t]) => `<button class="tpl${d.tpl === k ? ' on' : ''}" data-act="tpl" data-k="${k}"><canvas data-tpl="${k}" width="216" height="270" aria-hidden="true"></canvas><b>${t.name}</b><small>${t.desc}</small></button>`).join('')}</div>`;
   } else if (UI.tab === 'contenido'){
     const f = (k, l, ph, max) => `<label class="f">${l}<input data-dz="${k}" value="${esc(d[k])}" placeholder="${ph}" maxlength="${max || 70}"></label>`;
     tb = `${f('host', 'Frase de anfitrión', 'Ej. Eventos Cumbre te invita a', 80)}${f('name', 'Nombre del evento', 'Ej. Noche de Gala', 60)}
       <div class="seg2">${f('date', 'Fecha', 'Sábado 14 de noviembre', 40)}${f('time', 'Hora', '19:00 h', 20)}</div>
       ${f('place', 'Lugar', 'Ej. Arena Ciudad de México', 60)}
       <div class="seg2">${f('dress', 'Vestimenta', 'Ej. Etiqueta', 30)}${f('deadline', 'Confirmar antes del', 'Ej. 7 de noviembre', 30)}</div>
-      <label class="f">Mensaje para la página del invitado<textarea data-dz="message" rows="2" maxlength="140">${esc(d.message)}</textarea></label>`;
+      <label class="f">Mensaje para la página del invitado<textarea data-dz="message" rows="2" maxlength="140">${esc(d.message)}</textarea></label>
+      <p class="help" style="font-size:12.5px">El nombre de cada invitado, su tipo y sus lugares se llenan solos en su invitación.${multi ? ' Este contenido es el mismo para todos los tipos.' : ''}</p>`;
   } else if (UI.tab === 'estilo'){
-    tb = `<h3>Imágenes</h3>
+    tb = `${multi ? `<p class="help">Estos ajustes aplican${forType}. El logo es el mismo para todos.</p>` : ''}<h3>Imágenes</h3>
       <div class="upl"><span class="th" style="${d.bg ? `background-image:url(${d.bg})` : `background:${CSSBG[styleFor(d)]}`}"></span><button class="btn sm" data-act="pickImg" data-kind="bg">Subir fondo</button>${d.bg ? '<button class="link" data-act="clearImg" data-kind="bg">Usar el de la plantilla</button>' : '<span class="help">Opcional</span>'}</div>
       <div class="upl"><span class="th logo" style="${d.logo ? `background-image:url(${d.logo})` : ''}"></span><button class="btn sm" data-act="pickImg" data-kind="logo">Subir logo</button>${d.logo ? '<button class="link" data-act="clearImg" data-kind="logo">Quitar</button>' : '<span class="help">PNG sin fondo se ve mejor</span>'}</div>
       <h3>Acomodo</h3><div class="opts">${LAYOUTS.map(([k, l, svg]) => `<button class="opt${d.layout === k ? ' on' : ''}" data-act="dset" data-f="layout" data-v="${k}">${svg}${l}</button>`).join('')}</div>
@@ -1008,12 +1076,13 @@ function viewEstudio(){
   }
   return `<div class="phead"><div><span class="eyebrow">Paso 1</span><h1>Estudio de diseño</h1><p>Diseña la invitación de "${esc(c.name)}". Todo lo que cambies se ve al instante.</p></div>
     <div class="acts"><span class="saved" id="saved">✓ Guardado</span><a class="btn primary" href="#/app/invitados">Siguiente: invitados →</a></div></div>
+  ${typesBar}
   <div class="studio">
     <section class="card"><div class="tabs">${tabs.map(([k, i, l]) => `<button class="${UI.tab === k ? 'on' : ''}" data-act="tab" data-k="${k}">${ico(i)}${l}</button>`).join('')}</div><div class="tbody">${tb}</div></section>
     <section class="stage-wrap">
       <div class="segbar"><button class="${UI.stage === 'img' ? 'on' : ''}" data-act="stage" data-k="img">Invitación</button><button class="${UI.stage === 'page' ? 'on' : ''}" data-act="stage" data-k="page">Página del invitado</button></div>
       <div class="stage">${UI.stage === 'page' ? `<div class="phone"><div class="phone-scr">${redeemInner(c, pg, true)}</div></div>` : '<canvas id="pv" width="1080" height="1350" aria-label="Vista previa de la invitación"></canvas>'}</div>
-      <div class="stage-acts">${act.length ? `Vista previa con <select data-chg="pv">${act.map(g => `<option value="${g.id}"${g.id === pg.id ? ' selected' : ''}>${esc(g.name)}</option>`).join('')}</select>` : 'Vista previa con un invitado de ejemplo'}<button class="btn sm" data-act="dlSample"${act.length ? '' : ' disabled'}>${ico('down')}Descargar muestra</button></div>
+      <div class="stage-acts">${act.length ? `Vista previa con <select data-chg="pv">${act.map(g => `<option value="${g.id}"${g.id === pg.id ? ' selected' : ''}>${esc(g.name)}</option>`).join('')}</select>` : `Vista previa con un invitado de ejemplo${multi ? ' (aún no hay pases activos de este tipo)' : ''}`}<button class="btn sm" data-act="dlSample"${act.length ? '' : ' disabled'}>${ico('down')}Descargar muestra</button></div>
     </section>
   </div>`;
 }
@@ -1049,7 +1118,7 @@ function aiSuggest(){
 /* =================== 2 · Invitados =================== */
 function filtered(c){
   const q = norm(UI.q);
-  return c.guests.filter(g => (!UI.group || (UI.group === '__none' ? !g.group : g.group === UI.group)) && (!UI.status || status(g).k === UI.status) && (!q || norm(g.name + ' ' + g.email + ' ' + g.company + ' ' + g.group).includes(q)));
+  return c.guests.filter(g => (!UI.group || (UI.group === '__none' ? !g.group : g.group === UI.group)) && (!UI.type || typeOf(c, g).id === UI.type) && (!UI.status || status(g).k === UI.status) && (!q || norm([g.name, g.email, g.phone, g.company, g.group, typeOf(c, g).name].join(' ')).includes(q)));
 }
 const waLink = (c, g) => 'https://wa.me/?text=' + encodeURIComponent(`Hola ${first(g.name)}, ${c.design.host ? c.design.host.trim() + ' ' : ''}${c.design.name}. Esta es tu invitación personal, confirma tu asistencia aquí: ${redeemUrl(g.code)}`);
 function viewInvitados(){
@@ -1057,33 +1126,37 @@ function viewInvitados(){
   const head = `<div class="phead"><div><span class="eyebrow">Paso 2</span><h1>Invitados</h1><p>${esc(c.name)} · código de campaña <b class="mono">${esc(c.code)}</b></p></div>
     <div class="acts"><button class="btn" data-act="pickCsv">Importar CSV</button><button class="btn ghost" data-act="template">Plantilla CSV</button><button class="btn primary" data-act="dlAll"${c.guests.some(g => g.code) ? '' : ' disabled'}>${ico('down')}Descargar invitaciones</button></div></div>`;
   if (!c.guests.length) return head + `<div class="card empty" style="padding:48px"><b>Esta campaña aún no tiene invitados</b>Importa tu lista en CSV o carga una de ejemplo para seguir el recorrido.<div class="acts" style="justify-content:center;margin-top:16px"><button class="btn primary" data-act="pickCsv">Importar CSV</button><button class="btn" data-act="sampleGuests">Usar lista de ejemplo</button></div></div>`;
-  const groups = groupList(c), list = filtered(c), n = UI.sel.size, s = stats(c);
+  const groups = groupList(c), T = types(c), list = filtered(c), n = UI.sel.size, s = stats(c);
   const allSel = list.length > 0 && list.every(g => UI.sel.has(g.id));
   return head + `<div class="kpis">
-      <div class="card kpi"><div class="k">Invitados</div><div class="v num">${s.total}</div><div class="f">${plural(groups.length, 'grupo', 'grupos')}</div></div>
+      <div class="card kpi"><div class="k">Invitados</div><div class="v num">${s.total}</div><div class="f">${plural(groups.length, 'grupo', 'grupos')} · ${plural(T.length, 'tipo', 'tipos')}</div></div>
       <div class="card kpi"><div class="k">Pases activos</div><div class="v num">${s.active}</div><div class="f">${plural(s.total - s.active, 'pendiente', 'pendientes')} de activar</div></div>
       <div class="card kpi"><div class="k">Enviadas</div><div class="v num">${s.sent}</div><div class="f">${plural(s.seats, 'lugar', 'lugares')} en total</div></div>
       <div class="card kpi"><div class="k">Confirmadas</div><div class="v num">${s.conf}</div><div class="f">${s.rate}% de las enviadas</div></div></div>
   <div class="card filters">
-    <input type="search" placeholder="Buscar por nombre, correo, empresa o grupo" value="${esc(UI.q)}" data-input="q" aria-label="Buscar">
+    <input type="search" placeholder="Buscar por nombre, correo, teléfono, empresa o grupo" value="${esc(UI.q)}" data-input="q" aria-label="Buscar">
     <select data-chg="fgroup" aria-label="Grupo"><option value="">Todos los grupos</option>${groups.map(x => `<option${UI.group === x ? ' selected' : ''}>${esc(x)}</option>`).join('')}<option value="__none"${UI.group === '__none' ? ' selected' : ''}>Sin grupo</option></select>
+    <select data-chg="ftype" aria-label="Tipo de invitación"><option value="">Todos los tipos</option>${T.map(t => `<option value="${t.id}"${UI.type === t.id ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select>
     <select data-chg="fstatus" aria-label="Estado">${STATUS_OPTS.map(([v, l]) => `<option value="${v}"${UI.status === v ? ' selected' : ''}>${l}</option>`).join('')}</select>
   </div>
   ${n ? `<div class="bulk"><b>${plural(n, 'seleccionado', 'seleccionados')}</b>
+    <select data-chg="bulkType" aria-label="Asignar tipo"><option value="">Asignar tipo…</option>${T.map(t => `<option value="${t.id}">${esc(t.name)} · ${plural(t.seats, 'lugar', 'lugares')}</option>`).join('')}</select>
     <select data-chg="bulkGroup" aria-label="Asignar grupo"><option value="">Asignar a grupo…</option>${groups.map(x => `<option>${esc(x)}</option>`).join('')}<option value="__new">+ Nuevo grupo…</option></select>
     <label>Lugares por pase <input type="number" id="bulkSeats" min="1" max="20" value="2"></label><button class="btn sm" data-act="applySeats">Aplicar</button>
     <span class="sep"></span>
     <button class="btn coral" data-act="activate">Activar y generar QR</button>
+    <button class="btn sm" data-act="mailSel">Enviar por correo</button>
     <button class="btn sm" data-act="dlSel">Descargar</button>
     <button class="btn sm" data-act="markSent">Marcar enviadas</button>
     <button class="link" data-act="clearSel">Quitar selección</button></div>` : ''}
-  <div class="card twrap"><table>
-    <thead><tr><th class="ck"><input type="checkbox" data-chg="selAll"${allSel ? ' checked' : ''} aria-label="Seleccionar todos"></th><th>Nombre</th><th>Empresa</th><th>Grupo</th><th>Lugares</th><th>Código</th><th>Estado</th><th></th></tr></thead>
-    <tbody>${list.map(g => { const st = status(g); return `<tr class="${UI.sel.has(g.id) ? 'sel' : ''}">
+  <div class="card twrap"><table class="gt">
+    <thead><tr><th class="ck"><input type="checkbox" data-chg="selAll"${allSel ? ' checked' : ''} aria-label="Seleccionar todos"></th><th>Nombre</th><th>Contacto</th><th>Grupo</th><th>Tipo</th><th>Lugares</th><th>Código</th><th>Estado</th><th></th></tr></thead>
+    <tbody>${list.map(g => { const st = status(g), ty = typeOf(c, g); return `<tr class="${UI.sel.has(g.id) ? 'sel' : ''}">
       <td class="ck"><input type="checkbox" data-chg="sel" data-id="${g.id}"${UI.sel.has(g.id) ? ' checked' : ''} aria-label="Seleccionar ${esc(g.name)}"></td>
-      <td><b>${esc(g.name)}</b><small>${esc(g.email || 'sin correo')}</small></td>
-      <td>${esc(g.company) || '<span class="muted">·</span>'}</td>
+      <td><b>${esc(g.name)}</b><small>${esc(g.company) || '·'}</small></td>
+      <td class="ct">${g.email ? esc(g.email) : '<span class="muted">sin correo</span>'}<small>${esc(g.phone) || 'sin teléfono'}</small></td>
       <td>${esc(g.group) || '<span class="muted">·</span>'}</td>
+      <td><span class="tcell">${typeDot(c, ty)}<select class="tsel" data-chg="gtype" data-id="${g.id}" aria-label="Tipo de ${esc(g.name)}">${T.map(t => `<option value="${t.id}"${t.id === ty.id ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select></span></td>
       <td><input class="seats" type="number" min="${Math.max(1, used(g), entered(g))}" max="20" value="${g.seats}" data-chg="seats" data-id="${g.id}" aria-label="Lugares de ${esc(g.name)}"></td>
       <td class="mono">${g.code ? fmtCode(g.code) : '<span class="muted">·</span>'}</td>
       <td><span class="chip ${st.k}">${st.label}</span></td>
@@ -1111,8 +1184,11 @@ function dayChart(c){
 }
 function viewMetricas(){
   const c = camp(); if (!c) return emptyCamps();
-  const s = stats(c), groups = groupList(c).concat(c.guests.some(g => !g.group) ? [''] : []);
-  const rows = groups.map(gr => { const G = c.guests.filter(g => (g.group || '') === gr && isSentLike(g)), C = G.filter(g => used(g) > 0); return { gr, s: G.length, c: C.length, seats: sum(G, g => g.seats), used: sum(G, used), arr: sum(G, entered) }; }).filter(r => r.s > 0);
+  const s = stats(c), byType = UI.by === 'tipo';
+  const keyOf = g => byType ? typeOf(c, g).id : (g.group || '');
+  const keys = byType ? types(c).map(t => t.id) : groupList(c).concat(c.guests.some(g => !g.group) ? [''] : []);
+  const label = k => byType ? typeDot(c, types(c).find(t => t.id === k)) + ' ' + esc(types(c).find(t => t.id === k).name) : (esc(k) || '<span class="muted">Sin grupo</span>');
+  const rows = keys.map(gr => { const G = c.guests.filter(g => keyOf(g) === gr && isSentLike(g)), C = G.filter(g => used(g) > 0); return { gr, s: G.length, c: C.length, seats: sum(G, g => g.seats), used: sum(G, used), arr: sum(G, entered) }; }).filter(r => r.s > 0);
   const feed = c.guests.flatMap(g => g.redemptions.map(r => ({ k: 'c', at: r.at, name: r.name, g })).concat((g.checkins || []).map(x => ({ k: 'i', at: x.at, name: g.name, n: x.n, gate: x.gate, g })))).sort((a, b) => a.at < b.at ? 1 : -1).slice(0, 9);
   const arrivedPasses = c.guests.filter(g => entered(g) > 0).length;
   const fun = [['Invitados en la lista', s.total, s.total], ['Invitaciones enviadas', s.sent, s.total], ['Pases confirmados', s.conf, s.sent], ['Pases que llegaron', arrivedPasses, s.conf]];
@@ -1131,8 +1207,8 @@ function viewMetricas(){
     <section class="card pad"><h2>Embudo</h2><div class="funnel">${fun.map(([l, v, base], i) => `<div class="fr"><span>${l}</span><div class="bar"><i style="width:${s.total ? v / s.total * 100 : 0}%"></i></div><div><b class="num">${v}</b>${i ? `<small>${pct(v, base)}% del paso anterior</small>` : ''}</div></div>`).join('')}</div></section>
   </div>
   <div class="g2">
-    <section class="card pad"><h2>Avance por grupo</h2>${rows.length ? `<div class="twrap"><table><thead><tr><th>Grupo</th><th class="num">Enviadas</th><th class="num">Confirmadas</th><th>Tasa</th><th class="num">Asistentes</th><th class="num">Llegaron</th></tr></thead><tbody>
-      ${rows.map(r => `<tr><td><b>${esc(r.gr) || '<span class="muted">Sin grupo</span>'}</b></td><td class="num">${r.s}</td><td class="num">${r.c}</td><td><div style="display:flex;align-items:center;gap:8px"><div class="bar"><i style="width:${pct(r.c, r.s)}%"></i></div><span class="num">${pct(r.c, r.s)}%</span></div></td><td class="num">${r.used} de ${r.seats}</td><td class="num">${r.arr}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty"><b>Aún no hay invitaciones enviadas</b>Activa y descarga invitaciones en el paso 2.</div>'}</section>
+    <section class="card pad"><div class="h2row"><h2>Avance por ${byType ? 'tipo' : 'grupo'}</h2><div class="segmini"><button class="${byType ? '' : 'on'}" data-act="by" data-k="grupo">Por grupo</button><button class="${byType ? 'on' : ''}" data-act="by" data-k="tipo">Por tipo</button></div></div>${rows.length ? `<div class="twrap"><table><thead><tr><th>${byType ? 'Tipo' : 'Grupo'}</th><th class="num">Enviadas</th><th class="num">Confirmadas</th><th>Tasa</th><th class="num">Asistentes</th><th class="num">Llegaron</th></tr></thead><tbody>
+      ${rows.map(r => `<tr><td><b class="tcell">${label(r.gr)}</b></td><td class="num">${r.s}</td><td class="num">${r.c}</td><td><div style="display:flex;align-items:center;gap:8px"><div class="bar"><i style="width:${pct(r.c, r.s)}%"></i></div><span class="num">${pct(r.c, r.s)}%</span></div></td><td class="num">${r.used} de ${r.seats}</td><td class="num">${r.arr}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty"><b>Aún no hay invitaciones enviadas</b>Activa y descarga invitaciones en el paso 2.</div>'}</section>
     <section class="card pad"><h2>Actividad reciente</h2>${feed.length ? `<div class="feed">${feed.map(f => `<div class="fi"><span class="ic ${f.k}">${f.k === 'c' ? '✓' : '→'}</span><div><b>${esc(f.name)}</b><small>${f.k === 'c' ? 'Confirmó · pase de ' + esc(f.g.name) : 'Llegó con ' + plural(f.n, 'persona', 'personas') + ' · ' + esc(f.gate || '')}</small></div><span class="t">${fmtTime(f.at)}</span></div>`).join('')}</div>` : '<div class="empty"><b>Sin actividad todavía</b>Usa "Simular confirmaciones" o confirma desde la vista del invitado.</div>'}</section>
   </div>`;
 }
@@ -1154,7 +1230,7 @@ function viewAcceso(){
   <div class="acc">
     <section class="card qrbox"><div class="q" id="lxQr"></div><b>Abre el lector en tu celular</b><p class="help">Escanea este código, entra como <b>Lector de acceso</b> y apunta la cámara al QR de cualquier invitación de esta demo.</p></section>
     <section class="card pad"><h2>Llegadas</h2>${Object.keys(gates).length ? `<div class="acts" style="margin-bottom:12px">${Object.entries(gates).map(([k, v]) => `<span class="pill">${esc(k)} · <b class="num">${v}</b></span>`).join('')}</div>` : ''}
-      ${ins.length ? `<div class="feed">${ins.slice(0, 10).map(({ x, g }) => `<div class="fi"><span class="ic i">→</span><div><b>${esc(g.name)}</b><small>${plural(x.n, 'persona', 'personas')} · ${esc(g.group || 'Sin grupo')} · ${esc(x.gate || '')}</small></div><span class="t">${fmtTime(x.at)}</span></div>`).join('')}</div>` : '<div class="empty"><b>Todavía nadie ha llegado</b>Abre el lector y escanea una invitación, o usa "Simular llegadas".</div>'}
+      ${ins.length ? `<div class="feed">${ins.slice(0, 10).map(({ x, g }) => `<div class="fi"><span class="ic i">→</span><div><b>${esc(g.name)}</b><small>${plural(x.n, 'persona', 'personas')} · ${types(c).length > 1 ? esc(typeOf(c, g).name) + ' · ' : ''}${esc(g.group || 'Sin grupo')} · ${esc(x.gate || '')}</small></div><span class="t">${fmtTime(x.at)}</span></div>`).join('')}</div>` : '<div class="empty"><b>Todavía nadie ha llegado</b>Abre el lector y escanea una invitación, o usa "Simular llegadas".</div>'}
     </section>
   </div>`;
 }
@@ -1229,7 +1305,8 @@ function openSheet(){
   let body;
   if (g && (st === 'valid' || st === 'unconf' || st === 'used')){
     const e = entered(g), rem = g.seats - e;
-    body = `<div><h3>${esc(g.name)}</h3><p class="who">${esc(g.company || '')}${g.group ? ' · ' + esc(g.group) : ''}</p></div>
+    const hc = hit.c, multi = types(hc).length > 1, ty = typeOf(hc, g);
+    body = `<div><h3>${esc(g.name)}${multi ? `<span class="tbadge">${typeDot(hc, ty)}${esc(ty.name)}</span>` : ''}</h3><p class="who">${esc(g.company || '')}${g.group ? ' · ' + esc(g.group) : ''}</p></div>
       <div class="nums"><div><b class="num">${g.seats}</b>lugares</div><div><b class="num">${used(g)}</b>confirmaron</div><div><b class="num">${e}</b>ya entraron</div></div>
       ${used(g) ? `<div class="names">${g.redemptions.map(r => `<span>${esc(r.name)}</span>`).join('')}</div>` : ''}
       ${st !== 'used' ? `<div class="stepper"><span>Pasan ahora</span><div><button data-act="lxMinus" aria-label="Menos">−</button><b class="num" id="lxN">${LX.n}</b><button data-act="lxPlus" aria-label="Más">+</button></div></div>
@@ -1294,13 +1371,14 @@ function render(){
 function afterRender(view){
   const c = camp();
   if (view === 'estudio' && c){
-    const pv = $('#pv'); if (pv) drawInvitation(pv, previewGuest(c), c.design);
-    $$('[data-tpl]').forEach(cv => drawInvitation(cv, sampleGuest(c), applyTpl(c.design, cv.dataset.tpl), .2));
+    const et = editType(c), d = designFor(c, et);
+    const pv = $('#pv'); if (pv) drawInvitation(pv, previewGuest(c), d);
+    $$('[data-tpl]').forEach(cv => drawInvitation(cv, sampleGuest(c, et), applyTpl(d, cv.dataset.tpl), .2));
   }
-  if (view === 'panorama') $$('[data-thumb]').forEach(cv => { const x = S.campaigns.find(k => k.id === cv.dataset.thumb); if (x) drawInvitation(cv, sampleGuest(x), x.design, .2); });
+  if (view === 'panorama') $$('[data-thumb]').forEach(cv => { const x = S.campaigns.find(k => k.id === cv.dataset.thumb); if (x){ const g = sampleGuest(x); drawInvitation(cv, g, designOf(x, g), .2); } });
   if (view === 'acceso'){ const q = $('#lxQr'); if (q){ const qr = qrcode(0, 'M'); qr.addData(lectorUrl()); qr.make(); q.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); } }
 }
-function drawLoginArt(){ const cv = $('#lgInv'); if (cv){ const c = S.campaigns[0]; drawInvitation(cv, sampleGuest(c), c.design, .5); } }
+function drawLoginArt(){ const cv = $('#lgInv'); if (cv){ const c = S.campaigns[0], g = sampleGuest(c); drawInvitation(cv, g, designOf(c, g), .5); } }
 function go(h){ if (location.hash === h) render(); else location.hash = h; }
 window.addEventListener('hashchange', () => { UI.menu = null; render(); window.scrollTo(0, 0); });
 window.addEventListener('storage', e => {
@@ -1334,9 +1412,23 @@ function activate(list){
   const c = camp(); if (n && c.status === 'borrador') c.status = 'activa';
   save(); render(); toast(n ? plural(n, 'pase activado', 'pases activados') + '. Ya tienen su QR.' : 'Los seleccionados ya estaban activos.');
 }
-function sampleList(){
-  const people = [['Ana Lucía Torres', 'Grupo Andino', 'Patrocinadores', 4], ['Bernardo Ríos', 'Logística Alfa', 'Patrocinadores', 4], ['Isabel Cortés', 'Inmobiliaria Brisa', 'Clientes VIP', 2], ['Jorge Navarro', 'Farmacias Delta', 'Clientes VIP', 2], ['Karla Benítez', 'Autos del Bajío', 'Clientes VIP', 2], ['Valeria Robles', 'Revista Cancha', 'Medios', 1], ['Andrés Quiroga', 'Radio Pulso', 'Medios', 1], ['Hilda Cárdenas', 'Producción', 'Staff', 1]];
-  return people.map(([name, company, group, seats]) => { const p = norm(name).split(' '); return { id: uid(), name, email: p[0] + '.' + p[p.length - 1] + '@ejemplo.com', company, group, extra1: '', extra2: '', seats, code: null, activatedAt: null, sentAt: null, redemptions: [], checkins: [] }; });
+function sampleList(c){
+  const people = [['Ana Lucía Torres', 'Grupo Andino', 'Patrocinadores', 4], ['Bernardo Ríos', 'Logística Alfa', 'Patrocinadores', 4], ['Isabel Cortés', 'Inmobiliaria Brisa', 'Clientes', 2], ['Jorge Navarro', 'Farmacias Delta', 'Clientes', 2], ['Karla Benítez', 'Autos del Bajío', 'Clientes', 2], ['Valeria Robles', 'Revista Cancha', 'Medios', 1], ['Andrés Quiroga', 'Radio Pulso', 'Medios', 1], ['Hilda Cárdenas', 'Producción', 'Staff', 1]];
+  const rnd = mulberry32(77), d4 = () => String(Math.floor(rnd() * 1e4)).padStart(4, '0'), base = types(c)[0].id;
+  return people.map(([name, company, group, seats]) => { const p = norm(name).split(' '); return { id: uid(), name, email: p[0] + '.' + p[p.length - 1] + '@ejemplo.com', phone: '55 ' + d4() + ' ' + d4(), company, group, typeId: base, extra1: '', extra2: '', seats, code: null, activatedAt: null, sentAt: null, redemptions: [], checkins: [] }; });
+}
+// Cambia el tipo y, con él, los lugares del pase (sin bajar de lo ya confirmado o registrado)
+function setType(g, t){ g.typeId = t.id; if (Math.max(used(g), entered(g)) <= t.seats) g.seats = t.seats; }
+function mailTo(list){
+  const now = new Date().toISOString(), act = list.filter(g => g.code), ok = act.filter(g => g.email);
+  ok.forEach(g => { g.mailedAt = now; if (!g.sentAt) g.sentAt = now; });
+  return { act: act.length, ok: ok.length, noMail: act.length - ok.length };
+}
+function newTypeHtml(){
+  return `<h2 style="font-size:18px">Nuevo tipo de invitación</h2><p class="help" style="margin:-6px 0 14px">Por ejemplo VIP, General o Medios. Cada tipo tiene su diseño y sus lugares por pase; el contenido del evento es el mismo.</p>
+  <form class="form" data-form="newType"><div class="seg2"><label class="f">Nombre<input name="n" required maxlength="24" placeholder="Ej. VIP"></label><label class="f">Lugares por pase<input name="s" type="number" min="1" max="20" value="2" required></label></div>
+    <div><div class="help" style="font-weight:600;margin-bottom:8px">Plantilla para este tipo</div><div class="tplpick">${Object.entries(TPL).map(([k, t]) => `<button type="button" class="${UI.newTpl === k ? 'on' : ''}" data-act="pickTpl" data-k="${k}"><div class="sw2" style="background:${CSSBG[t.bg]};border-bottom:4px solid ${t.accent}"></div><span>${t.name}</span></button>`).join('')}</div></div>
+    <div class="form-acts"><button type="button" class="btn ghost" data-act="closeModal">Cancelar</button><button class="btn primary">Crear y diseñar</button></div></form>`;
 }
 let dzT = null;
 const ACTIONS = {
@@ -1344,30 +1436,49 @@ const ACTIONS = {
   logout(){ camOff(); lsDel(SKEY); UI.loginRole = null; location.hash = '#/'; render(); },
   theme(){ setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'); render(); },
   menu: d => { UI.menu = UI.menu === d.m ? null : d.m; render(); },
-  tenant: d => { S.tenantId = d.id; const c = camps()[0]; S.campaignId = c ? c.id : null; UI.menu = null; UI.sel.clear(); save(); go('#/app/panorama'); toast('Ahora ves ' + tenant().name); },
+  tenant: d => { S.tenantId = d.id; const c = camps()[0]; S.campaignId = c ? c.id : null; UI.menu = null; UI.sel.clear(); UI.ty = UI.type = ''; save(); go('#/app/panorama'); toast('Ahora ves ' + tenant().name); },
   demoOnly(){ UI.menu = null; render(); toast('En la demo las organizaciones vienen precargadas.'); },
-  pickCamp: d => { S.campaignId = d.id; UI.menu = null; UI.sel.clear(); UI.pv = ''; save(); render(); },
-  openCamp: d => { S.campaignId = d.id; UI.sel.clear(); UI.pv = ''; save(); go(camp().status === 'borrador' ? '#/app/estudio' : '#/app/metricas'); },
+  pickCamp: d => { S.campaignId = d.id; UI.menu = null; UI.sel.clear(); UI.pv = UI.ty = UI.type = ''; save(); render(); },
+  openCamp: d => { S.campaignId = d.id; UI.sel.clear(); UI.pv = UI.ty = UI.type = ''; save(); go(camp().status === 'borrador' ? '#/app/estudio' : '#/app/metricas'); },
   goCamp: d => { S.campaignId = d.id; save(); },
   newCamp(){ UI.menu = null; UI.newTpl = 'gala'; openModal(newCampHtml(), true); },
   pickTpl: d => { UI.newTpl = d.k; $$('.tplpick button').forEach(b => b.classList.toggle('on', b.dataset.k === d.k)); },
-  reset(){ if (!confirm('Se restauran los datos de ejemplo de la demo. ¿Continuar?')) return; S = seedState(); UI.sel.clear(); UI.q = UI.group = UI.status = ''; UI.ai = null; LX.log = []; save(); go('#/app/panorama'); toast('Demo restaurada'); },
+  reset(){ if (!confirm('Se restauran los datos de ejemplo de la demo. ¿Continuar?')) return; S = seedState(); UI.sel.clear(); UI.q = UI.group = UI.status = UI.type = UI.ty = UI.pv = ''; UI.by = 'grupo'; UI.ai = null; LX.log = []; save(); go('#/app/panorama'); toast('Demo restaurada'); },
   tab: d => { UI.tab = d.k; render(); },
   stage: d => { UI.stage = d.k; render(); },
-  tpl: d => { const c = camp(); c.design = applyTpl(c.design, d.k); save(); render(); toast('Plantilla ' + TPL[d.k].name + ' aplicada'); },
-  dset: d => { camp().design[d.f] = d.v; save(); render(); },
+  tpl: d => { const c = camp(); Object.assign(styleTarget(c), tplStyle(d.k)); save(); render(); toast('Plantilla ' + TPL[d.k].name + ' aplicada' + (types(c).length > 1 ? ' al tipo ' + editType(c).name : '')); },
+  dset: d => { styleTarget(camp())[d.f] = d.v; save(); render(); },
   pickImg: d => pickFile('image/*', async file => {
-    try { const c = camp(), url = await readImage(file, d.kind === 'logo' ? 700 : 1600, d.kind === 'logo'), prev = c.design[d.kind]; c.design[d.kind] = url; if (!save()){ c.design[d.kind] = prev; return; } render(); toast(d.kind === 'logo' ? 'Logo listo' : 'Fondo listo'); }
+    try { const c = camp(), url = await readImage(file, d.kind === 'logo' ? 700 : 1600, d.kind === 'logo'), o = d.kind === 'logo' ? c.design : styleTarget(c), prev = o[d.kind]; o[d.kind] = url; if (!save()){ o[d.kind] = prev; return; } render(); toast(d.kind === 'logo' ? 'Logo listo' : 'Fondo listo'); }
     catch (e){ toast(e.message, true); }
   }),
-  clearImg: d => { camp().design[d.kind] = null; save(); render(); },
+  clearImg: d => { const c = camp(); (d.kind === 'logo' ? c.design : styleTarget(c))[d.kind] = null; save(); render(); },
+  tyPick: d => { UI.ty = d.id; UI.pv = ''; render(); },
+  tyNew(){ UI.newTpl = 'gala'; openModal(newTypeHtml(), true); },
+  tyDel(){
+    const c = camp(), t = editType(c), base = types(c)[0]; if (t === base) return;
+    const G = c.guests.filter(g => g.typeId === t.id);
+    if (!confirm(`¿Eliminar el tipo "${t.name}"?` + (G.length ? ` ${plural(G.length, 'invitado pasa', 'invitados pasan')} a "${base.name}".` : ''))) return;
+    G.forEach(g => setType(g, base)); c.types = types(c).filter(x => x !== t);
+    if (UI.type === t.id) UI.type = ''; UI.ty = ''; UI.pv = ''; save(); render(); toast('Tipo eliminado');
+  },
+  by: d => { UI.by = d.k; render(); },
+  mailSel(){
+    const r = mailTo(selected()); if (!r.act) return toast('Primero activa los pases', true);
+    save(); render(); toast(r.ok ? plural(r.ok, 'invitación enviada', 'invitaciones enviadas') + ' por correo (simulado)' + (r.noMail ? '. ' + plural(r.noMail, 'invitado no tiene', 'invitados no tienen') + ' correo' : '') : 'Los seleccionados no tienen correo', !r.ok);
+  },
+  mailOne: d => {
+    const g = camp().guests.find(x => x.id === d.id); if (!g) return;
+    if (!g.email) return toast('Este invitado no tiene correo', true);
+    mailTo([g]); save(); closeModal(); render(); toast('Invitación enviada a ' + g.email + ' (simulado)');
+  },
   aiTone: d => { UI.aiTone = d.k; render(); },
   aiGo(){ UI.aiBusy = true; UI.ai = null; render(); setTimeout(() => { UI.aiBusy = false; UI.ai = aiSuggest(); render(); }, 900); },
-  aiUse: d => { const s = UI.ai[+d.i], c = camp(); c.design = applyTpl(Object.assign({}, c.design, { host: s.host, message: s.message, name: s.name }), s.tpl); save(); render(); toast('Propuesta aplicada. Puedes seguir ajustándola.'); },
-  async dlSample(){ const c = camp(), g = c.guests.find(x => x.id === UI.pv && x.code) || c.guests.find(x => x.code); if (!g) return; await downloadOne(c, g); render(); toast('Muestra descargada'); },
+  aiUse: d => { const s = UI.ai[+d.i], c = camp(); Object.assign(c.design, { host: s.host, message: s.message, name: s.name }); Object.assign(styleTarget(c), tplStyle(s.tpl)); save(); render(); toast('Propuesta aplicada. Puedes seguir ajustándola.'); },
+  async dlSample(){ const c = camp(), g = previewGuest(c); if (!g.id) return; await downloadOne(c, g); render(); toast('Muestra descargada'); },
   pickCsv(){ pickFile('.csv,text/csv', file => { const rd = new FileReader(); rd.onload = () => importCSV(String(rd.result)); rd.readAsText(file, 'utf-8'); }); },
-  template(){ downloadBlob(new Blob(['﻿nombre,correo,empresa,grupo,lugares,campo1,campo2\nAna López,ana.lopez@ejemplo.com,Empresa Uno,Clientes VIP,2,,\nLuis Pérez,luis.perez@ejemplo.com,Empresa Dos,Medios,1,,\n'], { type: 'text/csv' }), 'plantilla_invitados.csv'); },
-  sampleGuests(){ camp().guests.push(...sampleList()); save(); render(); toast('Lista de ejemplo cargada'); },
+  template(){ downloadBlob(new Blob(['﻿nombre,correo,telefono,empresa,grupo,tipo,lugares,campo1,campo2\nAna López,ana.lopez@ejemplo.com,55 1234 5678,Empresa Uno,Clientes,VIP,4,,\nLuis Pérez,luis.perez@ejemplo.com,55 8765 4321,Empresa Dos,Medios,General,1,,\n'], { type: 'text/csv' }), 'plantilla_invitados.csv'); },
+  sampleGuests(){ const c = camp(); c.guests.push(...sampleList(c)); save(); render(); toast('Lista de ejemplo cargada'); },
   clearSel(){ UI.sel.clear(); render(); },
   applySeats(){ const v = Math.min(20, Math.max(1, parseInt($('#bulkSeats').value, 10) || 1)); let skip = 0; selected().forEach(g => { if (Math.max(used(g), entered(g)) > v) skip++; else g.seats = v; }); save(); render(); toast('Lugares actualizados' + (skip ? '. ' + plural(skip, 'pase no cambió', 'pases no cambiaron') + ' porque ya tenía más confirmados' : '')); },
   activate(){ activate(selected()); },
@@ -1400,8 +1511,8 @@ const ACTIONS = {
   },
   export(){
     const c = camp(), q = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
-    const lines = [['Nombre', 'Correo', 'Empresa', 'Grupo', 'Lugares', 'Código', 'Estado', 'Confirmados', 'Nombres confirmados', 'Llegaron', 'Campo 1', 'Campo 2'].map(q).join(',')]
-      .concat(c.guests.map(g => [g.name, g.email, g.company, g.group, g.seats, fmtCode(g.code), status(g).label, used(g), g.redemptions.map(r => r.name).join(' | '), entered(g), g.extra1, g.extra2].map(q).join(',')));
+    const lines = [['Nombre', 'Correo', 'Teléfono', 'Empresa', 'Grupo', 'Tipo', 'Lugares', 'Código', 'Estado', 'Confirmados', 'Nombres confirmados', 'Llegaron', 'Campo 1', 'Campo 2'].map(q).join(',')]
+      .concat(c.guests.map(g => [g.name, g.email, g.phone, g.company, g.group, typeOf(c, g).name, g.seats, fmtCode(g.code), status(g).label, used(g), g.redemptions.map(r => r.name).join(' | '), entered(g), g.extra1, g.extra2].map(q).join(',')));
     downloadBlob(new Blob(['﻿' + lines.join('\n')], { type: 'text/csv' }), c.code + '_confirmaciones.csv');
   },
   async remindCopy(){
@@ -1410,7 +1521,7 @@ const ACTIONS = {
   },
   remindList(){
     const c = camp(), q = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"', P = c.guests.filter(g => isSentLike(g) && used(g) === 0);
-    downloadBlob(new Blob(['﻿' + [['Nombre', 'Correo', 'Empresa', 'Grupo', 'Enlace'].map(q).join(',')].concat(P.map(g => [g.name, g.email, g.company, g.group, redeemUrl(g.code)].map(q).join(','))).join('\n')], { type: 'text/csv' }), c.code + '_pendientes.csv');
+    downloadBlob(new Blob(['﻿' + [['Nombre', 'Correo', 'Teléfono', 'Empresa', 'Grupo', 'Tipo', 'Enlace'].map(q).join(',')].concat(P.map(g => [g.name, g.email, g.phone, g.company, g.group, typeOf(c, g).name, redeemUrl(g.code)].map(q).join(','))).join('\n')], { type: 'text/csv' }), c.code + '_pendientes.csv');
   },
   seePend(){ UI.status = 'sent'; UI.group = ''; UI.q = ''; go('#/app/invitados'); },
   invite(){ openModal(`<h2 style="font-size:18px">Invitar usuario</h2><form class="form" data-form="invite"><label class="f">Nombre<input name="n" required maxlength="60"></label><label class="f">Correo<input name="e" type="email" required maxlength="120"></label><label class="f">Rol<select name="r"><option value="admin">Administrador</option><option value="lector">Lector de acceso</option><option value="viewer">Solo métricas</option></select></label><label class="f">Puerta <span class="h">solo para lectores</span><input name="g" maxlength="30" placeholder="Ej. Puerta C"></label><div class="form-acts"><button type="button" class="btn ghost" data-act="closeModal">Cancelar</button><button class="btn primary">Enviar invitación</button></div></form>`, true); },
@@ -1447,24 +1558,37 @@ function newCampHtml(){
 }
 async function openCard(id){
   const c = camp(), g = c.guests.find(x => x.id === id); if (!g) return;
-  const st = status(g);
+  const st = status(g), ty = typeOf(c, g);
   openModal(`<button class="x" data-act="closeModal" aria-label="Cerrar">&times;</button><div class="card-modal">
     <div><canvas id="cardCv" width="1080" height="1350"></canvas></div>
     <div class="side2"><h2 style="font-size:19px;margin:0">${esc(g.name)}</h2><p class="help">${esc(g.company)}${g.group ? ' · ' + esc(g.group) : ''}</p>
+      <div class="kv"><span>Tipo</span><b>${typeDot(c, ty)}${esc(ty.name)}</b><span>Correo</span><b>${esc(g.email) || '<span class="muted">sin correo</span>'}</b><span>Teléfono</span><b>${esc(g.phone) || '<span class="muted">sin teléfono</span>'}</b></div>
       <div class="codebox mono">${fmtCode(g.code)}</div>
-      <p class="help">${g.seats > 1 ? 'Pase para ' + g.seats + ' personas' : 'Pase individual'} · <span class="chip ${st.k}">${st.label}</span></p>
-      <div class="urlbox">${esc(redeemUrl(g.code))}</div>
-      <button class="btn primary" data-act="dlCard" data-id="${g.id}">${ico('down')}Descargar imagen</button>
+      <p class="help">${g.seats > 1 ? 'Pase para ' + g.seats + ' personas' : 'Pase individual'} · <span class="chip ${st.k}">${st.label}</span>${g.mailedAt ? ' · Correo enviado' : ''}</p>
+      <div class="acts"><button class="btn primary" style="flex:1" data-act="mailOne" data-id="${g.id}"${g.email ? '' : ' disabled'}>Enviar por correo</button><button class="btn" style="flex:1" data-act="dlCard" data-id="${g.id}">${ico('down')}Descargar imagen</button></div>
       <div class="acts"><a class="btn" style="flex:1" href="${waLink(c, g)}" target="_blank" rel="noopener">${ico('chat')}WhatsApp</a><button class="btn" style="flex:1" data-act="copyLink" data-id="${g.id}">${ico('link')}Copiar enlace</button></div>
       <a class="btn" href="#/r/${g.code}" target="_blank" rel="noopener">${ico('eye')}Abrir página del invitado</a>
-      <p class="help" style="font-size:12px">WhatsApp abre el mensaje con el enlace; la imagen se adjunta a mano. En la demo, confirma en la página del invitado y este panel se actualiza solo.</p></div></div>`);
-  await drawInvitation($('#cardCv'), g, c.design);
+      <p class="help" style="font-size:12px">El correo sale desde su dominio con la invitación y su enlace (en la demo es simulado). WhatsApp abre el mensaje con el enlace y la imagen se adjunta a mano.</p></div></div>`);
+  await drawInvitation($('#cardCv'), g, designOf(c, g));
 }
 function openModal(html, small){ const m = $('#modal'); m.className = 'modal' + (small ? ' sm' : ''); m.innerHTML = html; $('#modalBack').hidden = false; const f = m.querySelector('input:not([type=hidden])'); if (f) setTimeout(() => f.focus(), 30); }
 function closeModal(){ $('#modalBack').hidden = true; $('#modal').innerHTML = ''; }
 
 const CHANGES = {
   fgroup: el => { UI.group = el.value; render(); },
+  ftype: el => { UI.type = el.value; render(); },
+  bulkType: el => {
+    const c = camp(), t = types(c).find(x => x.id === el.value); if (!t) return;
+    const list = selected(); list.forEach(g => setType(g, t)); save(); render();
+    toast(plural(list.length, 'invitado', 'invitados') + ' con invitación ' + t.name + ' (' + plural(t.seats, 'lugar', 'lugares') + ')');
+  },
+  gtype: el => { const c = camp(), g = c.guests.find(x => x.id === el.dataset.id), t = types(c).find(x => x.id === el.value); if (!g || !t) return; setType(g, t); save(); render(); },
+  tyName: el => { const t = editType(camp()), v = el.value.trim().slice(0, 24); if (v) t.name = v; save(); render(); },
+  tySeats: el => {
+    const c = camp(), t = editType(c), v = Math.min(20, Math.max(1, parseInt(el.value, 10) || 1)); t.seats = v;
+    const G = c.guests.filter(g => typeOf(c, g) === t); G.forEach(g => setType(g, t)); save(); render();
+    toast(t.name + ': ' + plural(v, 'lugar', 'lugares') + ' por pase' + (G.length ? ' en ' + plural(G.length, 'invitado', 'invitados') : ''));
+  },
   fstatus: el => { UI.status = el.value; render(); },
   sel: el => { el.checked ? UI.sel.add(el.dataset.id) : UI.sel.delete(el.dataset.id); render(); },
   selAll: el => { filtered(camp()).forEach(g => el.checked ? UI.sel.add(g.id) : UI.sel.delete(g.id)); render(); },
@@ -1475,7 +1599,7 @@ const CHANGES = {
     const list = selected(); list.forEach(g => { g.group = v; }); save(); render(); toast(plural(list.length, 'invitado', 'invitados') + ' en el grupo "' + v + '"');
   },
   pv: el => { UI.pv = el.value; render(); },
-  accentPick: el => { camp().design.accent = el.value; save(); render(); },
+  accentPick: el => { styleTarget(camp()).accent = el.value; save(); render(); },
   lxCamp: el => { S.campaignId = el.value; save(); LX.log = []; render(); }
 };
 const FORMS = {
@@ -1499,9 +1623,15 @@ const FORMS = {
   },
   newCamp(f){
     const name = f.elements.n.value.trim(); if (!name) return;
-    const c = { id: uid(), tenantId: tenant().id, code: campCode(name), name, status: 'borrador', createdAt: new Date().toISOString(), guests: [],
+    const c = { id: uid(), tenantId: tenant().id, code: campCode(name), name, status: 'borrador', createdAt: new Date().toISOString(), guests: [], types: [{ id: uid(), name: 'General', seats: 1, style: null }],
       design: designFrom(UI.newTpl || 'gala', { host: tenant().name + ' te invita a', name, date: f.elements.d.value.trim() }) };
-    S.campaigns.push(c); S.campaignId = c.id; UI.tab = 'contenido'; UI.sel.clear(); save(); closeModal(); go('#/app/estudio'); toast('Campaña creada con el código ' + c.code);
+    S.campaigns.push(c); S.campaignId = c.id; UI.tab = 'contenido'; UI.sel.clear(); UI.ty = UI.type = UI.pv = ''; save(); closeModal(); go('#/app/estudio'); toast('Campaña creada con el código ' + c.code);
+  },
+  newType(f){
+    const c = camp(), name = f.elements.n.value.trim().slice(0, 24); if (!name) return;
+    if (types(c).some(t => norm(t.name) === norm(name))) return toast('Ya existe un tipo con ese nombre', true);
+    const t = { id: uid(), name, seats: Math.min(20, Math.max(1, parseInt(f.elements.s.value, 10) || 1)), style: typeStyle(UI.newTpl || 'gala') };
+    types(c).push(t); UI.ty = t.id; UI.pv = ''; UI.tab = 'plantillas'; save(); closeModal(); go('#/app/estudio'); toast('Tipo ' + name + ' creado. Ajusta su diseño.');
   },
   invite(f){
     const t = tenant(); (S.team[t.id] = S.team[t.id] || []).push({ id: uid(), name: f.elements.n.value.trim(), email: f.elements.e.value.trim(), role: f.elements.r.value, gate: f.elements.g.value.trim() });
@@ -1515,7 +1645,7 @@ document.addEventListener('input', e => {
   if (t.dataset.dz){
     const c = camp(); c.design[t.dataset.dz] = t.value; const s = $('#saved'); if (s) s.textContent = 'Guardando…';
     clearTimeout(dzT); dzT = setTimeout(() => { save(); const s2 = $('#saved'); if (s2) s2.textContent = '✓ Guardado'; }, 400);
-    const pv = $('#pv'); if (pv) drawInvitation(pv, previewGuest(c), c.design);
+    const pv = $('#pv'); if (pv) drawInvitation(pv, previewGuest(c), designFor(c, editType(c)));
     const ps = $('.phone-scr'); if (ps) ps.innerHTML = redeemInner(c, previewGuest(c), true);
     return;
   }
@@ -1554,6 +1684,7 @@ function toast(msg, err){ const t = $('#toast'); t.textContent = msg; t.classNam
 
 /* =================== Arranque =================== */
 setTheme(lsGet(TKEY, null) || (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+lsDel('atrio_demo_v2');
 if (!lsGet(KEY, null)) save();
 render();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => {
