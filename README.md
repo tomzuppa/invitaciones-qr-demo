@@ -9,6 +9,10 @@ Demo de Baobyte de una plataforma de invitaciones para eventos de alto nivel:
 
 Varias organizaciones conviven en la misma plataforma, cada una con sus campañas.
 
+Confidencialidad: en su primer ingreso el administrador acepta el convenio de confidencialidad y
+tratamiento de datos en nombre de su organización, el lector acepta un compromiso breve y cada invitado
+ve un aviso de privacidad en su página de confirmación. El texto es un borrador de ejemplo.
+
 Acceso de prueba: administrador `admin / demo2026`, lector `lector / puerta2026`.
 Es una demo sin servidor: los datos viven en el navegador de quien la abre. Los invitados de ejemplo
 son los mismos en cualquier navegador, así que el lector de un celular reconoce las invitaciones de la demo.

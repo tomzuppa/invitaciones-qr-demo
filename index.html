@@ -302,6 +302,10 @@ body.public{background:#0b0f17}
 .rp-det b{display:block;font-size:13.5px;color:var(--rp-ink)}
 .rp-err{background:rgba(208,59,59,.12);color:#d03b3b;border-radius:12px;padding:13px;font-weight:600;text-align:center}
 .rp-foot{padding:16px 24px 22px;font-size:11.5px;color:var(--rp-ink2);text-align:center;border-top:1px solid var(--rp-line)}
+.rp-legal{font-size:12px;color:var(--rp-ink2);text-align:center}
+.rp-priv{margin:0 auto 10px;text-align:left;max-width:420px}
+.rp-priv summary{cursor:pointer;text-align:center;font-weight:600;color:var(--rp-ink);font-size:12.5px}
+.rp-priv div{margin-top:8px;display:grid;gap:6px;font-size:12px;line-height:1.5;background:var(--rp-card);border-radius:12px;padding:12px 14px}
 
 /* ---------- Ingreso ---------- */
 body.login{background:var(--page)}
@@ -326,6 +330,27 @@ body.login{background:var(--page)}
 .role small{font-size:12px;color:var(--muted)}
 .role.on{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
 .hint{background:var(--primary-soft);color:var(--primary);border-radius:10px;padding:9px 12px;font-size:12.5px}
+.lgate{min-height:100vh;display:grid;justify-items:center;align-items:start;padding:36px 16px;background:radial-gradient(120% 80% at 20% 0%,#1b4a7a 0%,#0a1424 55%,#050a13 100%)}
+.lg-card{width:min(820px,100%);background:var(--card);color:var(--ink);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.45);padding:28px 32px;display:grid;gap:16px}
+.lg-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.lg-card .side-brand{padding:0}
+.ess{background:var(--primary-soft);border-radius:14px;padding:14px 18px}
+.ess b{display:block;margin-bottom:6px;color:var(--primary);font-size:13.5px}
+.ess ul{padding-left:18px;display:grid;gap:4px;font-size:13.5px;color:var(--ink)}
+.ldoc{max-height:330px;overflow:auto;border:1px solid var(--line);border-radius:14px;padding:16px 20px;background:var(--card-2);font-size:13px;color:var(--ink-2);line-height:1.6}
+.ldoc h4{font-size:12.5px;color:var(--ink);margin:14px 0 4px;letter-spacing:.02em}
+.ldoc p{margin:0 0 6px}
+.ldoc p.li{padding-left:16px}
+.ldoc .ld-intro{color:var(--ink)}
+.ldoc dl{display:grid;grid-template-columns:170px 1fr;gap:6px 14px}
+.ldoc dt{font-weight:600;color:var(--ink)}
+.ldoc ul{padding-left:18px}
+.lform{display:grid;gap:12px}
+label.ck{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;cursor:pointer}
+label.ck input{margin-top:2px;flex:none}
+.legalc{display:flex;align-items:center;gap:14px;padding:16px 18px;margin-bottom:16px}
+.legalc > svg.i{width:28px;height:28px;color:var(--good-ink)}
+.legalc > div{flex:1;min-width:0}
 
 /* ---------- Lector de acceso ---------- */
 body.lector{background:#05080e}
@@ -363,6 +388,13 @@ body.lector{background:#05080e}
 .lx-foot{margin-top:auto;padding:14px 18px 22px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#8ea1ba;border-top:1px solid #172235}
 .lx-foot a{color:#8ea1ba}
 .lx-foot button{background:none;border:0;color:#8ea1ba;cursor:pointer;font-size:12.5px}
+.lx-legal{padding:18px 20px 26px;display:grid;gap:14px}
+.lx-legal > svg.i{width:40px;height:40px;color:#4aa3ff}
+.lx-legal h2{font-size:21px;margin:0}
+.lx-legal p{color:#a9b8cc;font-size:13.5px}
+.lx-legal ul{padding-left:18px;display:grid;gap:8px;font-size:14px}
+.lx-legal label.ck{background:#131c2b;border:1px solid #24324a;border-radius:12px;padding:13px}
+.lx-legal .btn.primary{background:#2f80c8;border-color:#2f80c8;color:#fff}
 .sheet-back{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;display:flex;align-items:flex-end;justify-content:center}
 .sheet{width:min(480px,100%);background:#0f1622;color:#e8eef6;border-radius:24px 24px 0 0;padding:22px 20px 26px;display:grid;gap:14px;border-top:6px solid var(--st,#4aa3ff);animation:up .22s ease-out}
 @keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
@@ -451,6 +483,8 @@ body.lector{background:#05080e}
   .lg{grid-template-columns:1fr}
   .lg-inv{display:none}
   .card-modal{grid-template-columns:1fr}
+  .lg-card{padding:20px 18px}
+  .ldoc dl,.lg-card .seg2{grid-template-columns:1fr}
 }
 </style>
 <script src="vendor/qrcode.min.js"></script>
@@ -527,6 +561,19 @@ const FONTS = {
   sport: { family: 'Oswald, "Arial Narrow", Impact, sans-serif', weight: 700, upper: true, label: 'Deportiva', size: 100 }
 };
 const BODY = 'Inter, "Segoe UI", system-ui, sans-serif';
+
+/* =================== Convenio, compromiso del lector y aviso de privacidad =================== */
+// El texto viene de 06_Legal/src/convenio_v1.json (sync_demo.py). [[nota]] no se muestra; [valor] se muestra sin corchetes
+/*LEGAL:INI*/const LEGAL = {"version": "1.0", "date": "17 de octubre de 2026", "title": "Convenio de confidencialidad y tratamiento de datos personales", "summary": ["Sus datos son suyos. Baobyte los usa solo para sus eventos y por encargo de ustedes.", "No los vendemos, no los compartimos y no los usamos para nada más.", "En renta se borran 30 días después del evento. En compra viven en sus propias cuentas.", "Si algo le pasa a la información, les avisamos en menos de 72 horas."], "clauses": [{"t": "PRIMERA. Objeto", "b": ["Este convenio establece las obligaciones de confidencialidad entre las partes y las condiciones con las que Baobyte tratará, por encargo del Cliente, los datos personales que se recaben a través de la plataforma Atrio para la organización de sus eventos (en lo sucesivo, los \"Eventos\"), ya sea en la modalidad de renta por evento o en la modalidad de compra."]}, {"t": "SEGUNDA. Definiciones", "b": [{"li": ["Información Confidencial: toda información que una parte entregue a la otra, o a la que esta tenga acceso con motivo de su relación, incluidas listas de invitados, datos personales e información comercial, financiera, técnica y de los Eventos, sin importar el medio en que conste.", "Datos Personales: cualquier información concerniente a una persona física identificada o identificable, en particular la de invitados, acompañantes y usuarios de la plataforma.", "Titulares: las personas a quienes corresponden los Datos Personales.", "Plataforma: el software Atrio, sus aplicaciones, servidores y servicios asociados.", "Ley: la Ley Federal de Protección de Datos Personales en Posesión de los Particulares vigente, su reglamento y las demás disposiciones aplicables."]}]}, {"t": "TERCERA. Confidencialidad", "b": ["Cada parte se obliga a:", {"li": ["a) Usar la Información Confidencial únicamente para cumplir el objeto de este convenio.", "b) No divulgarla, publicarla ni ponerla a disposición de terceros sin autorización previa y por escrito de la otra parte.", "c) Dar acceso a ella solo al personal que necesite conocerla y que esté obligado a guardar la misma confidencialidad.", "d) Protegerla con un cuidado no menor al que usa para su propia información confidencial."]}, "No se considera Información Confidencial la que sea del dominio público sin culpa de quien la recibe, la que esta ya conociera legítimamente antes de recibirla, la que reciba de un tercero sin obligación de confidencialidad o la que deba entregar por orden de autoridad competente. En este último caso avisará de inmediato a la otra parte, cuando la ley lo permita, y entregará solo lo estrictamente requerido."]}, {"t": "CUARTA. Papel de cada parte en el tratamiento", "b": ["El Cliente es el responsable de los Datos Personales y decide sobre su tratamiento. Baobyte actúa como encargado y los trata únicamente por cuenta del Cliente y conforme a sus instrucciones.", "Corresponde al Cliente recabar los Datos Personales de forma lícita y poner a disposición de los Titulares su aviso de privacidad. Baobyte facilitará que dicho aviso se muestre en la página de confirmación de cada invitado; el Anexo C contiene un modelo de aviso simplificado. El Cliente se abstendrá de cargar en la Plataforma datos personales sensibles."]}, {"t": "QUINTA. Obligaciones de Baobyte como encargado", "b": ["Baobyte se obliga a:", {"li": ["a) Tratar los Datos Personales solo para las finalidades del Anexo A: envío de invitaciones, confirmación de asistencia, control de acceso el día del Evento y métricas del Evento para el Cliente.", "b) No usarlos para fines propios, no venderlos, no cederlos y no combinarlos con otras bases de datos.", "c) No transferirlos a terceros, salvo a los subencargados del Anexo A, como el proveedor de nube y el servicio de envío de correo, que estarán sujetos a obligaciones equivalentes a las de este convenio. Baobyte informará al Cliente antes de agregar o sustituir un subencargado, y el Cliente podrá oponerse por causa justificada.", "d) Aplicar las medidas de seguridad administrativas, técnicas y físicas del Anexo B.", "e) Guardar confidencialidad sobre los Datos Personales aun después de terminada la relación.", "f) Apoyar al Cliente para atender las solicitudes de acceso, rectificación, cancelación y oposición de los Titulares, y remitirle en un plazo máximo de [3 días hábiles] cualquier solicitud que reciba directamente."]}]}, {"t": "SEXTA. Vulneraciones de seguridad", "b": ["Si Baobyte detecta una vulneración que afecte a los Datos Personales, como pérdida, robo, acceso o uso no autorizado, la informará al Cliente sin demora y a más tardar dentro de las [72 horas] siguientes a que tenga conocimiento, con la información disponible sobre lo ocurrido, los datos afectados y las medidas tomadas. Las partes colaborarán para mitigar el daño y para que el Cliente informe a los Titulares cuando corresponda."]}, {"t": "SÉPTIMA. Conservación y borrado", "b": [{"li": ["a) Modalidad de renta: Baobyte conservará los Datos Personales durante el Evento y los borrará de forma segura [30 días naturales] después de su fecha, salvo que el Cliente solicite por escrito un plazo distinto. Antes del borrado, el Cliente podrá descargar su información en Excel. A solicitud del Cliente, Baobyte entregará constancia del borrado.", "b) Modalidad de compra: la Plataforma se instala en cuentas de nube a nombre del Cliente y los Datos Personales permanecen bajo su control. Baobyte solo tendrá acceso durante la instalación, la capacitación y el soporte, con usuarios nominales que el Cliente puede revocar en cualquier momento. Al terminar el soporte, Baobyte eliminará cualquier copia que tuviera y devolverá los accesos."]}]}, {"t": "OCTAVA. Personal y usuarios", "b": ["Cada parte es responsable de que su personal, incluidos los usuarios de la Plataforma (administradores, lectores de acceso y usuarios de solo consulta), conozca y cumpla este convenio. Los lectores de acceso solo verán la información necesaria para validar la entrada y aceptarán un compromiso de confidencialidad antes de usar la Plataforma."]}, {"t": "NOVENA. Verificación", "b": ["El Cliente podrá solicitar, hasta una vez al año y con [10 días hábiles] de aviso, evidencia razonable del cumplimiento de este convenio, como la descripción de las medidas de seguridad, la lista de subencargados y las constancias de borrado."]}, {"t": "DÉCIMA. Propiedad de la información", "b": ["Los Datos Personales y la información de los Eventos pertenecen al Cliente, y este convenio no otorga a Baobyte derecho alguno sobre ellos. La propiedad intelectual de la Plataforma se rige por el contrato de servicios o de compra que celebren las partes."]}, {"t": "DÉCIMA PRIMERA. Vigencia", "b": ["Este convenio entra en vigor en la fecha de su firma y se mantiene mientras exista relación entre las partes. Las obligaciones de confidencialidad subsistirán [3 años] después de su terminación, y las relativas a Datos Personales, mientras Baobyte conserve cualquiera de ellos."]}, {"t": "DÉCIMA SEGUNDA. Responsabilidad", "b": ["La parte que incumpla este convenio responderá de los daños y perjuicios que cause a la otra. [[Por definir con los abogados: pena convencional y, en su caso, límite de responsabilidad.]]"]}, {"t": "DÉCIMA TERCERA. Legislación y jurisdicción", "b": ["Este convenio se rige por las leyes federales de los Estados Unidos Mexicanos. Para su interpretación y cumplimiento, las partes se someten a los tribunales competentes de [la Ciudad de México] y renuncian a cualquier otro fuero que pudiera corresponderles por razón de su domicilio presente o futuro."]}], "anexoA": [["Titulares", "Invitados y sus acompañantes; usuarios de la Plataforma designados por el Cliente."], ["Datos", "Nombre, correo electrónico, teléfono, empresa, grupo, tipo de invitación, campos libres que el Cliente decida cargar, nombres de acompañantes y fecha y hora de confirmación y de entrada. No incluye datos personales sensibles."], ["Finalidades", "Envío de invitaciones, confirmación de asistencia, control de acceso el día del Evento y métricas del Evento para el Cliente."], ["Subencargados", "Proveedor de infraestructura en la nube y servicio de envío de correo. [[Nombres por confirmar, por ejemplo Supabase, Cloudflare y el servicio de correo elegido.]]"], ["Ubicación de los servidores", "[[Por confirmar con el proveedor de nube.]]"], ["Plazo de conservación", "Según la cláusula Séptima."]], "anexoB": ["Cifrado de la información en tránsito (HTTPS) y en reposo.", "Acceso con usuario y contraseña, y roles separados: administrador, lector de acceso sin datos de contacto y solo métricas.", "Cada organización ve únicamente sus propias campañas e invitados.", "Registro de accesos y de acciones relevantes en la Plataforma.", "Respaldos periódicos mientras dure el Evento.", "Acceso del personal de Baobyte limitado a quien lo necesita, con usuarios nominales.", "Borrado seguro conforme a la cláusula Séptima."], "aviso": ["{CLIENTE} es responsable de tus datos personales.", "Los usamos para confirmar tu asistencia a {EVENTO}, controlar el acceso el día del evento y medir la asistencia. Solo pedimos tu nombre y, si quieres, tu correo.", "La plataforma Atrio de Baobyte procesa tus datos por encargo de {CLIENTE} y no los usa para nada más. Se borran 30 días después del evento.", "Para ejercer tus derechos de acceso, rectificación, cancelación u oposición, o para conocer el aviso de privacidad integral, escribe a {CONTACTO}."], "lector": ["Usaré la información de los invitados solo para validar su entrada al evento.", "No tomaré fotos, capturas ni copias de nombres o listas.", "No compartiré mi usuario ni mi contraseña con nadie.", "Avisaré al administrador si noto algo extraño o pierdo mi celular."]};/*LEGAL:FIN*/
+const legalTxt = (s, v) => esc(String(s).replace(/\s*\[\[[^\]]*\]\]/g, '').replace(/\[([^\]]*)\]/g, '$1').replace(/\{([A-Z]+)\}/g, (m, k) => v && v[k] != null ? v[k] : m)).trim();
+function convenioHtml(t){
+  const v = { CLIENTE: t.name }, P = s => legalTxt(s, v);
+  return `<p class="ld-intro">Convenio entre <b>${esc(t.name)}</b>, responsable de los datos de sus invitados, y <b>Baobyte</b>, encargado y titular de la plataforma Atrio. Versión ${esc(LEGAL.version)} · ${esc(LEGAL.date)}.</p>
+    ${LEGAL.clauses.map(c => `<h4>${esc(c.t)}</h4>` + c.b.map(b => typeof b === 'string' ? `<p>${P(b)}</p>` : b.li.map(li => `<p class="li">${P(li)}</p>`).join('')).join('')).join('')}
+    <h4>Anexo A. Detalle del tratamiento</h4><dl>${LEGAL.anexoA.filter(([, x]) => P(x)).map(([k, x]) => `<dt>${esc(k)}</dt><dd>${P(x)}</dd>`).join('')}</dl>
+    <h4>Anexo B. Medidas de seguridad</h4><ul>${LEGAL.anexoB.map(m => `<li>${P(m)}</li>`).join('')}</ul>`;
+}
+const avisoHtml = (c, d) => LEGAL.aviso.map(a => `<p>${legalTxt(a, { CLIENTE: (S.tenants.find(t => t.id === c.tenantId) || tenant()).name, EVENTO: d.name, CONTACTO: 'privacidad@ejemplo.com' })}</p>`).join('');
 const ACCENTS = ['#ff7a1a', '#c9a45c', '#ee4035', '#22d3ee', '#7cc4ff', '#2fbf71', '#014a7d', '#ffffff'];
 const CSSBG = {
   court: 'radial-gradient(120% 90% at 50% 0%,#22406a 0%,#0d1a2e 55%,#05080f 100%)',
@@ -584,6 +631,8 @@ function seedState(){
   const general = seats => ({ id: 'general', name: 'General', seats, style: null });
   return {
     v: 3, tenantId: 't1', campaignId: 'c1',
+    // Fundación Horizonte ya aceptó su convenio; Eventos Cumbre lo acepta en su primer ingreso
+    legal: { t2: { at: ago(46), name: 'Renata Flores', title: 'Directora general', v: LEGAL.version } }, legalLx: null,
     tenants: [{ id: 't1', name: 'Eventos Cumbre', short: 'EC', color: '#1d6fb0' }, { id: 't2', name: 'Fundación Horizonte', short: 'FH', color: '#7c3aed' }],
     campaigns: [
       { id: 'c1', tenantId: 't1', code: 'CTS26', name: 'Noche Courtside 2026', status: 'activa', createdAt: ago(8), guests: g1,
@@ -614,6 +663,7 @@ const LX = { stream: null, timer: null, lastText: '', lastAt: 0, i: 0, log: [], 
 const R = { flash: '' };
 
 const tenant = () => S.tenants.find(t => t.id === S.tenantId) || S.tenants[0];
+const legalOf = t => (S.legal || (S.legal = {}))[(t || tenant()).id];
 const camps = () => S.campaigns.filter(c => c.tenantId === tenant().id);
 const camp = () => camps().find(c => c.id === S.campaignId) || camps()[0];
 const used = g => g.redemptions.length;
@@ -929,12 +979,13 @@ function redeemInner(c, g, preview){
     ${l > 0 ? `<form class="rp-form" ${preview ? 'onsubmit="return false"' : `data-form="redeem" data-code="${g.code}"`}>
         <label class="f">Nombre de quien asiste<input name="n" required maxlength="80" value="${u ? '' : esc(g.name)}" autocomplete="name"${pv}></label>
         <label class="f">Correo <span class="h">opcional</span><input name="e" type="email" maxlength="120" autocomplete="email"${pv}></label>
-        <button class="btn" style="background:${btnBg};border-color:transparent;color:#fff"${preview ? ' type="button" tabindex="-1"' : ''}>Confirmar asistencia</button></form>`
+        <button class="btn" style="background:${btnBg};border-color:transparent;color:#fff"${preview ? ' type="button" tabindex="-1"' : ''}>Confirmar asistencia</button>
+        <p class="rp-legal">Al confirmar aceptas el aviso de privacidad que está al final de esta página.</p></form>`
       : '<div class="rp-full">Todos los lugares de este pase ya están confirmados. ¡Nos vemos en el evento!</div>'}
     ${det}
     ${g.seats > 1 && l > 0 ? `<div class="rp-share">¿Vienes acompañado? Comparte esta misma invitación: cada persona abre el enlace y confirma su lugar con su nombre.<button class="btn sm" ${preview ? 'type="button" tabindex="-1"' : `data-act="share" data-code="${g.code}"`}>Compartir invitación</button></div>` : ''}
   </div>
-  <footer class="rp-foot">Tus datos se usan solo para este evento.<br>Atrio · una plataforma de Baobyte</footer>`;
+  <footer class="rp-foot"><details class="rp-priv"><summary>Aviso de privacidad</summary><div>${avisoHtml(c, d)}</div></details>Tus datos se usan solo para este evento.<br>Atrio · una plataforma de Baobyte</footer>`;
   const demoBar = preview ? '' : `<div class="rp-demo">Modo demo: la confirmación se guarda en este navegador.${session() ? ` <a href="#/app/metricas" data-act="goCamp" data-id="${c.id}">Ir al tablero</a>` : ''}</div>`;
   return `<div class="rp ${light || d.bg ? 'r-dark' : 'r-light'}">${demoBar}${head}${body}</div>`;
 }
@@ -973,6 +1024,37 @@ function viewLogin(){
       <p class="hint">Demo: los datos de acceso ya están llenos. Administrador: <b>admin / demo2026</b> · Lector: <b>lector / puerta2026</b></p>
       <p class="help" style="text-align:center">¿Eres invitado? <a href="#/r">Confirma tu asistencia con tu código</a></p>
     </form></main></div>`;
+}
+
+/* =================== Convenio (administrador) y compromiso (lector) en el primer ingreso =================== */
+function viewConvenio(){
+  const t = tenant(), adm = (S.team[t.id] || []).find(u => u.role === 'admin') || { name: '' };
+  return `<div class="lgate"><div class="lg-card">
+    <div class="lg-top"><div class="side-brand"><span class="mark">A</span><div><b>Atrio</b><small>by Baobyte</small></div></div><span class="pill demo">Modo demo</span></div>
+    <div><span class="eyebrow">Antes de empezar</span><h1>Convenio de confidencialidad y tratamiento de datos</h1>
+      <p class="help" style="margin-top:6px">Es el acuerdo entre ${esc(t.name)} y Baobyte para cuidar la información de sus invitados. Se acepta una sola vez por organización y queda registrado quién lo aceptó y cuándo.</p></div>
+    <div class="ess"><b>Lo esencial</b><ul>${LEGAL.summary.map(s => `<li>${esc(s)}</li>`).join('')}</ul></div>
+    <div class="ldoc" tabindex="0" aria-label="Texto del convenio">${convenioHtml(t)}</div>
+    <form class="lform" data-form="convenio">
+      <div class="seg2"><label class="f">Nombre<input name="n" value="${esc(adm.name)}" required maxlength="60" autocomplete="name"></label><label class="f">Cargo<input name="c" value="Directora de eventos" required maxlength="60"></label></div>
+      <label class="ck"><input type="checkbox" name="ok" required><span>Leí el convenio y lo acepto en nombre de <b>${esc(t.name)}</b>.</span></label>
+      <div class="form-acts"><button type="button" class="btn ghost" data-act="logout">Salir</button><button class="btn primary">Aceptar y entrar</button></div>
+      <p class="help" style="font-size:12px">Demo: el texto es un borrador de ejemplo. El convenio final lo revisan los abogados de ambas partes.</p>
+    </form></div></div>`;
+}
+function viewCompromiso(){
+  return `<div class="lx">
+    <header class="lx-top"><div><b>Acceso en puerta</b><span>${esc(tenant().name)} · ${esc(LX.gate)}</span></div></header>
+    <form class="lx-legal" data-form="compromiso">${ico('shield')}
+      <h2>Compromiso de confidencialidad</h2>
+      <p>En la puerta verás los nombres de los invitados. Antes de abrir el lector, confirma que:</p>
+      <ul>${LEGAL.lector.map(s => `<li>${esc(s)}</li>`).join('')}</ul>
+      <label class="ck"><input type="checkbox" name="ok" required><span>Acepto este compromiso.</span></label>
+      <button class="btn primary big">Aceptar y abrir el lector</button>
+      <p style="font-size:12px">Forma parte del convenio de confidencialidad entre ${esc(tenant().name)} y Baobyte.</p>
+    </form>
+    <footer class="lx-foot"><span>Luis Ortega · Lector de acceso</span><button data-act="logout">Salir</button></footer>
+  </div>`;
 }
 
 /* =================== Estructura del panel =================== */
@@ -1238,15 +1320,18 @@ function viewAcceso(){
 /* =================== Equipo y accesos =================== */
 const ROLE = { admin: 'Administrador', lector: 'Lector de acceso', viewer: 'Solo métricas' };
 function viewEquipo(){
-  const t = tenant(), team = S.team[t.id] || [];
+  const t = tenant(), team = S.team[t.id] || [], lg = legalOf(t);
+  // En la demo solo Luis Ortega (el usuario lector de prueba) acepta el compromiso desde su celular
+  const conf = u => u.role !== 'lector' ? '<span class="muted">Cubierto por el convenio</span>' : (S.legalLx && u.name === 'Luis Ortega') ? '<span class="chip full">Compromiso aceptado</span>' : '<span class="chip pend">Pendiente</span>';
   return `<div class="phead"><div><span class="eyebrow">Organización</span><h1>Equipo y accesos</h1><p>Quién entra a ${esc(t.name)} y qué puede hacer. Cada organización ve solo sus campañas.</p></div><button class="btn primary" data-act="invite">+ Invitar usuario</button></div>
+  ${lg ? `<div class="card legalc">${ico('shield')}<div><b>Convenio de confidencialidad y tratamiento de datos</b><p class="help">Aceptado por ${esc(lg.name)} (${esc(lg.title)}) el ${fmtTime(lg.at)} · versión ${esc(lg.v)}</p></div><button class="btn sm" data-act="seeConvenio">Ver convenio</button></div>` : ''}
   <div class="roles3">
     <div class="card">${ico('key')}<b>Administrador</b><p>Diseña invitaciones, carga invitados, activa pases y ve todas las métricas.</p></div>
     <div class="card">${ico('scan')}<b>Lector de acceso</b><p>Solo escanea pases en la puerta desde su celular. No ve datos de contacto.</p></div>
     <div class="card">${ico('chart')}<b>Solo métricas</b><p>Consulta el avance de confirmación sin poder modificar nada.</p></div>
   </div>
-  <div class="card twrap"><table><thead><tr><th>Nombre</th><th>Rol</th><th>Puerta</th><th>Estado</th></tr></thead><tbody>
-    ${team.map(u => `<tr><td><b>${esc(u.name)}</b><small>${esc(u.email)}</small></td><td><span class="chip ${u.role === 'admin' ? 'act' : u.role === 'lector' ? 'sent' : 'pend'}">${ROLE[u.role]}</span></td><td>${esc(u.gate) || '<span class="muted">·</span>'}</td><td><span class="chip full">Activo</span></td></tr>`).join('')}
+  <div class="card twrap"><table><thead><tr><th>Nombre</th><th>Rol</th><th>Puerta</th><th>Confidencialidad</th><th>Estado</th></tr></thead><tbody>
+    ${team.map(u => `<tr><td><b>${esc(u.name)}</b><small>${esc(u.email)}</small></td><td><span class="chip ${u.role === 'admin' ? 'act' : u.role === 'lector' ? 'sent' : 'pend'}">${ROLE[u.role]}</span></td><td>${esc(u.gate) || '<span class="muted">·</span>'}</td><td>${conf(u)}</td><td><span class="chip full">Activo</span></td></tr>`).join('')}
   </tbody></table></div>`;
 }
 const emptyCamps = () => `<div class="card empty" style="padding:56px"><b>Esta organización aún no tiene campañas</b>Crea la primera para diseñar su invitación.<div style="margin-top:16px"><button class="btn primary" data-act="newCamp">+ Nueva campaña</button></div></div>`;
@@ -1359,7 +1444,8 @@ function render(){
   camOff(); closeSheet();
   if (h === '/r' || h.startsWith('/r/')){ document.body.className = 'public'; $('#app').innerHTML = viewRedeem(decodeURIComponent(h.slice(3))); return; }
   if (!ses){ document.body.className = 'login'; $('#app').innerHTML = viewLogin(); drawLoginArt(); return; }
-  if (h === '/lector'){ document.body.className = 'lector'; $('#app').innerHTML = viewLector(); return; }
+  if (ses.role === 'admin' && !legalOf()){ document.body.className = 'login'; $('#app').innerHTML = viewConvenio(); window.scrollTo(0, 0); return; }
+  if (h === '/lector'){ document.body.className = 'lector'; $('#app').innerHTML = ses.role === 'lector' && !S.legalLx ? viewCompromiso() : viewLector(); return; }
   if (ses.role === 'lector'){ location.replace('#/lector'); return; }
   const view = Object.keys(VIEWS).find(k => h === '/app/' + k) || 'panorama';
   document.body.className = 'admin';
@@ -1463,6 +1549,7 @@ const ACTIONS = {
     if (UI.type === t.id) UI.type = ''; UI.ty = ''; UI.pv = ''; save(); render(); toast('Tipo eliminado');
   },
   by: d => { UI.by = d.k; render(); },
+  seeConvenio(){ openModal(`<button class="x" data-act="closeModal" aria-label="Cerrar">&times;</button><span class="eyebrow">Versión ${esc(LEGAL.version)}</span><h2 style="font-size:19px">Convenio de confidencialidad y tratamiento de datos</h2><div class="ldoc" style="max-height:66vh">${convenioHtml(tenant())}</div>`); },
   mailSel(){
     const r = mailTo(selected()); if (!r.act) return toast('Primero activa los pases', true);
     save(); render(); toast(r.ok ? plural(r.ok, 'invitación enviada', 'invitaciones enviadas') + ' por correo (simulado)' + (r.noMail ? '. ' + plural(r.noMail, 'invitado no tiene', 'invitados no tienen') + ' correo' : '') : 'Los seleccionados no tienen correo', !r.ok);
@@ -1609,6 +1696,15 @@ const FORMS = {
     if (!role) return toast('Usuario o contraseña incorrectos', true);
     lsSet(SKEY, JSON.stringify({ role, at: Date.now() }));
     go(role === 'admin' ? '#/app/panorama' : '#/lector');
+  },
+  convenio(f){
+    const n = f.elements.n.value.trim(), c = f.elements.c.value.trim(); if (!n || !c || !f.elements.ok.checked) return;
+    (S.legal || (S.legal = {}))[tenant().id] = { at: new Date().toISOString(), name: n, title: c, v: LEGAL.version };
+    save(); render(); toast('Convenio aceptado y registrado');
+  },
+  compromiso(f){
+    if (!f.elements.ok.checked) return;
+    S.legalLx = { at: new Date().toISOString(), name: 'Luis Ortega', v: LEGAL.version }; save(); render(); toast('Compromiso aceptado');
   },
   findCode(f){ location.hash = '#/r/' + f.elements.c.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase(); },
   redeem(f){
