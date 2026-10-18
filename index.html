@@ -7,6 +7,12 @@
 <meta name="theme-color" content="#0a1424">
 <title>Atrio · Invitaciones de alto nivel</title>
 <link rel="icon" href="assets/baobyte.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Atrio">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -477,14 +483,151 @@ body.lector{background:#05080e}
   .stage-wrap{position:static}
   .g2,.roles3{grid-template-columns:1fr}
 }
+/* Márgenes seguros del celular (muesca y barra de inicio) cuando se abre como app instalada */
+.lx,.rp{padding-top:env(safe-area-inset-top)}
+.lx-foot{padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+.sheet{padding-bottom:calc(26px + env(safe-area-inset-bottom))}
+.rp-foot{padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+
+/* ---------- Celular: se comporta como app (barra superior, pestañas abajo, menú deslizable) ---------- */
+.mbar,.tabbar,.scrim,.m-only,.glist,.install,.m-of{display:none}
+.g2 > *,.studio > *,.acc > *{min-width:0}
 @media (max-width:860px){
-  .app{grid-template-columns:1fr}
-  .side{position:static;height:auto}
+  html,body{-webkit-tap-highlight-color:transparent}
+  body.admin{overscroll-behavior-y:none}
+  input,select,textarea{font-size:16px}
+  .app{display:block;min-height:100vh}
+  .mbar{display:flex;align-items:center;gap:6px;position:sticky;top:0;z-index:30;padding:calc(8px + env(safe-area-inset-top)) 8px 8px;background:linear-gradient(180deg,var(--side),#0c1a2f);color:var(--side-ink);box-shadow:0 4px 16px rgba(0,0,0,.18)}
+  .mbar button,.mbar a{background:none;border:0;color:inherit;display:flex;align-items:center;gap:10px;min-height:44px;padding:0 8px;border-radius:12px;cursor:pointer;text-decoration:none}
+  .mbar .ib2{width:44px;justify-content:center;padding:0}
+  .mbar .ib2 svg.i{width:22px;height:22px}
+  .mbar .mb-camp{flex:1;min-width:0;text-align:left}
+  .mbar .mb-camp span:last-child{min-width:0}
+  .mbar b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar small{display:block;font-size:11.5px;color:var(--side-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .side{position:fixed;top:0;bottom:0;left:0;width:min(86vw,320px);height:100%;z-index:50;transform:translateX(-104%);transition:transform .25s ease;padding-top:calc(18px + env(safe-area-inset-top));padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+  .drawer-open .side{transform:none;box-shadow:24px 0 60px rgba(0,0,0,.45)}
+  .scrim{display:block;position:fixed;inset:0;background:rgba(5,10,18,.55);z-index:45;opacity:0;pointer-events:none;transition:opacity .25s}
+  .drawer-open .scrim{opacity:1;pointer-events:auto}
+  .nav a{min-height:44px}
+  .m-only{display:grid}
+  .side-acts{gap:8px;grid-template-columns:1fr 1fr}
+  .side-acts .btn{background:var(--side-2);border-color:var(--side-line);color:var(--side-ink)}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px rgba(15,23,42,.08)}
+  .tabbar a{display:grid;justify-items:center;gap:3px;font-size:10.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:5px 0;border-radius:12px;min-height:48px;align-content:center}
+  .tabbar a.on{color:var(--primary)}
+  .tabbar a.on svg.i{background:var(--primary-soft);border-radius:10px;padding:3px;width:30px;height:28px}
+  .tabbar svg.i{width:24px;height:24px}
+  .mhead{display:none}
+  .wrap{padding:16px 16px calc(92px + env(safe-area-inset-bottom))}
+  .phead{margin-bottom:14px;gap:12px}
+  .phead h1{font-size:23px}
+  .phead p{font-size:13px}
+  .phead .acts,.phead > .btn{width:100%}
+  .phead .acts .btn{flex:1 1 auto}
+  .phead > .btn{justify-content:center}
+  .phead .saved{display:none}
+  .btn{min-height:42px}
+  .btn.sm{min-height:38px}
+  .kpis{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  .kpis > :last-child:nth-child(odd){grid-column:1/-1}
+  .kpi{padding:12px 14px}
+  .kpi .v{font-size:23px}
+  .kpi .k,.kpi .f{font-size:12px}
+  .card.pad,.pad{padding:16px}
+  .camps{grid-template-columns:1fr}
+  .camp{padding:12px;gap:12px}
+  .camp canvas{width:84px;height:105px}
+  .install{display:flex;align-items:center;gap:12px;padding:14px;margin-bottom:14px;border-left:4px solid var(--primary)}
+  .install .mark{flex:none}
+  .install > div{flex:1;min-width:0;font-size:13px;color:var(--ink-2)}
+  .install b{display:block;color:var(--ink);font-size:14px}
+  .install .acts{flex-direction:column;align-items:stretch;gap:4px}
+  /* Estudio */
+  .types{padding:12px;gap:10px}
+  .types .row{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+  .types .row::-webkit-scrollbar{display:none}
+  .types .row .help{display:none}
+  .ty{flex:none}
+  .tyrow{gap:10px}
+  .tyrow > span{flex:1 1 100%}
+  .tyrow label{flex:1 1 140px}
+  .tyrow input{width:100%}
+  .tyrow input[type=number]{width:70px;flex:none}
+  .stage-wrap{order:-1}
+  .stage{min-height:0;padding:14px}
+  .stage canvas{max-width:250px}
+  .phone{width:min(300px,100%);height:560px}
+  .tabs button svg.i{display:none}
+  .tbody{padding:14px}
+  /* Invitados como tarjetas */
+  .gt-wrap{display:none}
+  .glist{display:grid;gap:10px}
+  .gcard{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:12px 12px 12px 10px;display:grid;grid-template-columns:34px 1fr;gap:6px 6px}
+  .gcard.sel{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-soft)}
+  .gcard .gk{grid-row:1/4;display:grid;place-items:start center;padding-top:3px}
+  .gcard .gk input{width:20px;height:20px}
+  .gcard .gn{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;background:none;border:0;padding:0;text-align:left;color:var(--ink);cursor:pointer;min-width:0}
+  .gcard .gn b{display:block;font-size:15px}
+  .gcard .gn small{display:block;font-size:12px;color:var(--muted)}
+  .gcard .gn .chip{flex:none;margin-top:1px}
+  .gcard .gc{font-size:12.5px;color:var(--ink-2);overflow-wrap:anywhere}
+  .gcard .gr{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .gcard .gr label{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-weight:600}
+  .gcard .gr input.seats{width:62px;padding:7px 6px}
+  .gcard .gr .btn{margin-left:auto}
+  .filters{padding:10px;gap:8px}
+  .filters input[type=search]{flex:1 1 100%;min-width:0}
+  .filters select{flex:1 1 calc(50% - 4px);min-width:0;width:auto}
+  .bulk{position:fixed;left:8px;right:8px;top:auto;bottom:calc(72px + env(safe-area-inset-bottom));flex-wrap:nowrap;overflow-x:auto;z-index:28;padding:10px;border-radius:14px;scrollbar-width:none}
+  .bulk::-webkit-scrollbar{display:none}
+  .bulk > *{flex:none}
+  .bulk select{max-width:150px}
+  /* Métricas, equipo y acceso */
+  .funnel .fr{grid-template-columns:1fr auto;grid-template-areas:"l v" "b b";row-gap:6px}
+  .funnel .fr > span{grid-area:l}
+  .funnel .fr .bar{grid-area:b;height:18px}
+  .funnel .fr > div:last-child{grid-area:v;display:flex;gap:8px;align-items:baseline}
+  .hide-m{display:none}
+  .m-of{display:inline}
+  .g2 th,.g2 td{padding-left:6px;padding-right:6px}
+  .g2 .bar{min-width:40px}
+  .bar{min-width:56px}
+  .h2row{flex-wrap:wrap}
+  .feed .fi{grid-template-columns:auto 1fr;}
+  .feed .fi .t{grid-column:2}
+  .remind{padding:14px}
+  .remind .acts .btn{flex:1 1 auto}
+  table.stack thead{display:none}
+  table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%}
+  table.stack tr{padding:12px 14px;border-bottom:1px solid var(--line)}
+  table.stack td{border:0;padding:3px 0;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  table.stack td:first-child{display:block;padding-bottom:6px}
+  table.stack td[data-label]::before{content:attr(data-label);color:var(--muted);font-size:12px}
+  .legalc{flex-wrap:wrap}
+  .legalc .btn{width:100%}
+  .qrbox .q{width:150px;height:150px}
+  /* Ventanas como hoja que sube desde abajo */
+  .modal-back{padding:0;place-items:end center}
+  .modal,.modal.sm{width:100%;max-height:92vh;border-radius:22px 22px 0 0;padding:22px 16px calc(20px + env(safe-area-inset-bottom));animation:up .22s ease-out}
+  .card-modal{grid-template-columns:1fr;gap:16px}
+  .card-modal canvas{max-width:230px;margin:0 auto;display:block}
+  .tplpick{grid-template-columns:repeat(2,1fr)}
+  .toast{bottom:calc(84px + env(safe-area-inset-bottom));width:max-content;max-width:calc(100vw - 32px)}
+  .tip{display:none!important}
+  /* Ingreso y convenio */
   .lg{grid-template-columns:1fr}
-  .lg-inv{display:none}
-  .card-modal{grid-template-columns:1fr}
-  .lg-card{padding:20px 18px}
+  .lg-art{padding:calc(26px + env(safe-area-inset-top)) 22px 26px}
+  .lg-art h2{font-size:28px;margin:28px 0 10px}
+  .lg-art p{font-size:14px}
+  .lg-feats,.lg-by,.lg-inv{display:none}
+  .lg-form{padding:24px 16px calc(28px + env(safe-area-inset-bottom));place-items:start center}
+  .lgate{padding:calc(16px + env(safe-area-inset-top)) 10px calc(16px + env(safe-area-inset-bottom))}
+  .lg-card{padding:20px 16px;border-radius:18px}
+  .lg-card h1{font-size:22px}
+  .ldoc{max-height:46vh;padding:14px}
   .ldoc dl,.lg-card .seg2{grid-template-columns:1fr}
+  .lg-card .form-acts .btn{flex:1}
 }
 </style>
 <script src="vendor/qrcode.min.js"></script>
@@ -542,7 +685,9 @@ const ICO = {
   text: '<path d="M4 7V5h16v2M9 19h6M12 5v14"/>',
   layers: '<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/>',
   camera: '<path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/>',
-  key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/>'
+  key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  phone: '<rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/>'
 };
 const ico = (k, cls) => `<svg class="i ${cls || ''}" viewBox="0 0 24 24" aria-hidden="true">${ICO[k]}</svg>`;
 
@@ -1062,7 +1207,14 @@ const NAV = { panorama: [null, 'grid', 'Panorama'], estudio: [1, 'palette', 'Est
 function shell(view, body){
   const t = tenant(), c = camp(), dark = document.documentElement.dataset.theme === 'dark';
   const link = k => { const n = NAV[k]; return `<a href="#/app/${k}" class="${view === k ? 'on' : ''}">${n[0] ? `<span class="n">${n[0]}</span>` : ico(n[1])}${n[2]}</a>`; };
-  return `<div class="app">
+  const fa = c && firstActive(c);
+  const TABS = [['panorama', 'Inicio'], ['estudio', 'Diseño'], ['invitados', 'Invitados'], ['metricas', 'Métricas'], ['acceso', 'Puerta']];
+  return `<div class="app${UI.drawer ? ' drawer-open' : ''}">
+  <header class="mbar">
+    <button class="ib2" data-act="drawer" aria-label="Abrir menú">${ico('menu')}</button>
+    <button class="mb-camp" data-act="drawer"><span class="dot ${c ? c.status : ''}"></span><span><b>${view === 'panorama' || view === 'equipo' || !c ? esc(t.name) : esc(c.name)}</b><small>${view === 'panorama' || view === 'equipo' || !c ? NAV[view][2] : esc(t.name) + ' · ' + NAV[view][2]}</small></span></button>
+    <a class="ib2" href="#/lector" aria-label="Abrir lector">${ico('scan')}</a>
+  </header>
   <aside class="side">
     <div class="side-brand"><span class="mark">A</span><div><b>Atrio</b><small>by Baobyte</small></div></div>
     <div class="drop"><button class="dbtn" data-act="menu" data-m="org" aria-expanded="${UI.menu === 'org'}"><span class="av" style="background:${t.color}">${esc(t.short)}</span><span><b>${esc(t.name)}</b><small>Organización</small></span>${ico('chev')}</button>
@@ -1076,6 +1228,7 @@ function shell(view, body){
       <div class="side-label">Organización</div>${link('equipo')}
     </nav>
     <div class="side-foot">
+      <div class="m-only side-acts">${fa ? `<a class="btn sm" href="#/r/${fa.code}" target="_blank" rel="noopener">${ico('eye')}Vista invitado</a>` : ''}<button class="btn sm" data-act="reset">Reiniciar demo</button></div>
       <button class="tgl" data-act="theme" aria-pressed="${dark}">${ico(dark ? 'sun' : 'moon')}Modo oscuro<span class="sw${dark ? ' on' : ''}"></span></button>
       <div class="me"><span class="av" style="background:#1d6fb0">AM</span><div><b>Ana Martínez</b><small>Administradora</small></div><button data-act="logout" title="Salir" aria-label="Salir">${ico('logout')}</button></div>
       <div class="byb"><img src="assets/baobyte.png" alt="">Una plataforma de Baobyte</div>
@@ -1083,9 +1236,25 @@ function shell(view, body){
   </aside>
   <div class="main">
     <header class="mhead"><div class="crumbs">${esc(t.name)}${view !== 'panorama' && view !== 'equipo' && c ? ` <span>/</span> ${esc(c.name)}` : ''} <span>/</span> <b>${NAV[view][2]}</b></div>
-      <div class="mhead-acts"><span class="pill demo">Modo demo</span><button class="btn ghost sm" data-act="reset">Reiniciar demo</button>${c && firstActive(c) ? `<a class="btn sm" href="#/r/${firstActive(c).code}" target="_blank" rel="noopener">${ico('eye')}Vista del invitado</a>` : ''}<a class="btn sm" href="#/lector">${ico('scan')}Abrir lector</a></div></header>
+      <div class="mhead-acts"><span class="pill demo">Modo demo</span><button class="btn ghost sm" data-act="reset">Reiniciar demo</button>${fa ? `<a class="btn sm" href="#/r/${fa.code}" target="_blank" rel="noopener">${ico('eye')}Vista del invitado</a>` : ''}<a class="btn sm" href="#/lector">${ico('scan')}Abrir lector</a></div></header>
     <main class="wrap">${body}</main>
-  </div></div>`;
+  </div>
+  <div class="scrim" data-act="drawer"></div>
+  <nav class="tabbar" aria-label="Secciones">${TABS.map(([k, l]) => `<a href="#/app/${k}" class="${view === k ? 'on' : ''}">${ico(NAV[k][1])}<span>${l}</span></a>`).join('')}</nav>
+  </div>`;
+}
+
+/* =================== Instalar como app =================== */
+let installEvt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; if (route() === '/app/panorama') render(); });
+window.addEventListener('appinstalled', () => { installEvt = null; lsSet('atrio_noinstall', '1'); toast('Atrio quedó instalada en tu celular'); });
+const standalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function installCard(){
+  if (standalone() || lsGet('atrio_noinstall', '') === '1') return '';
+  const how = installEvt ? 'Ábrela desde tu pantalla de inicio, a pantalla completa y sin tiendas de apps.'
+    : isIOS() ? 'En Safari toca Compartir y luego "Agregar a inicio".' : 'En el menú del navegador elige "Instalar app" o "Agregar a pantalla de inicio".';
+  return `<div class="card install"><span class="mark">A</span><div><b>Úsala como app</b>${how}</div><div class="acts">${installEvt ? '<button class="btn sm primary" data-act="install">Instalar</button>' : ''}<button class="btn sm ghost" data-act="noInstall">Ahora no</button></div></div>`;
 }
 
 /* =================== Panorama =================== */
@@ -1099,6 +1268,7 @@ function viewPanorama(){
     <div class="card kpi hl"><div class="k">Confirmación global</div><div class="v num">${pct(conf, sent)}%</div><div class="f">${plural(conf, 'pase confirmado', 'pases confirmados')}</div></div>
     <div class="card kpi"><div class="k">Asistentes confirmados</div><div class="v num">${people}</div><div class="f">personas, con acompañantes</div></div>
   </div>
+  ${installCard()}
   <h2>Campañas</h2>
   <div class="camps">${list.map(c => { const s = stats(c); return `<button class="camp" data-act="openCamp" data-id="${c.id}">
       <canvas data-thumb="${c.id}" width="216" height="270" aria-hidden="true"></canvas>
@@ -1216,7 +1386,7 @@ function viewInvitados(){
       <div class="card kpi"><div class="k">Enviadas</div><div class="v num">${s.sent}</div><div class="f">${plural(s.seats, 'lugar', 'lugares')} en total</div></div>
       <div class="card kpi"><div class="k">Confirmadas</div><div class="v num">${s.conf}</div><div class="f">${s.rate}% de las enviadas</div></div></div>
   <div class="card filters">
-    <input type="search" placeholder="Buscar por nombre, correo, teléfono, empresa o grupo" value="${esc(UI.q)}" data-input="q" aria-label="Buscar">
+    <input type="search" placeholder="Buscar invitado, correo o teléfono" value="${esc(UI.q)}" data-input="q" aria-label="Buscar">
     <select data-chg="fgroup" aria-label="Grupo"><option value="">Todos los grupos</option>${groups.map(x => `<option${UI.group === x ? ' selected' : ''}>${esc(x)}</option>`).join('')}<option value="__none"${UI.group === '__none' ? ' selected' : ''}>Sin grupo</option></select>
     <select data-chg="ftype" aria-label="Tipo de invitación"><option value="">Todos los tipos</option>${T.map(t => `<option value="${t.id}"${UI.type === t.id ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select>
     <select data-chg="fstatus" aria-label="Estado">${STATUS_OPTS.map(([v, l]) => `<option value="${v}"${UI.status === v ? ' selected' : ''}>${l}</option>`).join('')}</select>
@@ -1231,7 +1401,7 @@ function viewInvitados(){
     <button class="btn sm" data-act="dlSel">Descargar</button>
     <button class="btn sm" data-act="markSent">Marcar enviadas</button>
     <button class="link" data-act="clearSel">Quitar selección</button></div>` : ''}
-  <div class="card twrap"><table class="gt">
+  <div class="card twrap gt-wrap"><table class="gt">
     <thead><tr><th class="ck"><input type="checkbox" data-chg="selAll"${allSel ? ' checked' : ''} aria-label="Seleccionar todos"></th><th>Nombre</th><th>Contacto</th><th>Grupo</th><th>Tipo</th><th>Lugares</th><th>Código</th><th>Estado</th><th></th></tr></thead>
     <tbody>${list.map(g => { const st = status(g), ty = typeOf(c, g); return `<tr class="${UI.sel.has(g.id) ? 'sel' : ''}">
       <td class="ck"><input type="checkbox" data-chg="sel" data-id="${g.id}"${UI.sel.has(g.id) ? ' checked' : ''} aria-label="Seleccionar ${esc(g.name)}"></td>
@@ -1243,7 +1413,15 @@ function viewInvitados(){
       <td class="mono">${g.code ? fmtCode(g.code) : '<span class="muted">·</span>'}</td>
       <td><span class="chip ${st.k}">${st.label}</span></td>
       <td><div class="ract">${g.code ? `<button class="ib" data-act="card" data-id="${g.id}" title="Ver invitación" aria-label="Ver invitación de ${esc(g.name)}">${ico('eye')}</button><a class="ib" href="${waLink(c, g)}" target="_blank" rel="noopener" title="Enviar por WhatsApp" aria-label="WhatsApp">${ico('chat')}</a><button class="ib" data-act="copyLink" data-id="${g.id}" title="Copiar enlace" aria-label="Copiar enlace">${ico('link')}</button>` : `<button class="btn sm" data-act="activateOne" data-id="${g.id}">Activar</button>`}</div></td></tr>`; }).join('')}</tbody>
-  </table>${list.length ? '' : '<div class="empty"><b>Nadie coincide con los filtros</b></div>'}</div>`;
+  </table>${list.length ? '' : '<div class="empty"><b>Nadie coincide con los filtros</b></div>'}</div>
+  <div class="glist">${list.map(g => { const st = status(g), ty = typeOf(c, g); return `<div class="gcard${UI.sel.has(g.id) ? ' sel' : ''}">
+      <label class="gk"><input type="checkbox" data-chg="sel" data-id="${g.id}"${UI.sel.has(g.id) ? ' checked' : ''} aria-label="Seleccionar ${esc(g.name)}"></label>
+      <button class="gn" ${g.code ? `data-act="card" data-id="${g.id}"` : 'type="button" tabindex="-1"'}><span><b>${esc(g.name)}</b><small>${[g.company, g.group].filter(Boolean).map(esc).join(' · ') || '·'}</small></span><span class="chip ${st.k}">${st.label}</span></button>
+      <div class="gc">${g.email ? esc(g.email) : 'sin correo'} · ${esc(g.phone) || 'sin teléfono'}</div>
+      <div class="gr"><span class="tcell">${typeDot(c, ty)}<select class="tsel" data-chg="gtype" data-id="${g.id}" aria-label="Tipo de ${esc(g.name)}">${T.map(t => `<option value="${t.id}"${t.id === ty.id ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select></span>
+        <label>Lugares <input class="seats" type="number" min="${Math.max(1, used(g), entered(g))}" max="20" value="${g.seats}" data-chg="seats" data-id="${g.id}"></label>
+        ${g.code ? '' : `<button class="btn sm" data-act="activateOne" data-id="${g.id}">Activar</button>`}</div></div>`; }).join('')}
+    ${list.length ? '' : '<div class="card empty"><b>Nadie coincide con los filtros</b></div>'}</div>`;
 }
 
 /* =================== 3 · Métricas =================== */
@@ -1289,8 +1467,8 @@ function viewMetricas(){
     <section class="card pad"><h2>Embudo</h2><div class="funnel">${fun.map(([l, v, base], i) => `<div class="fr"><span>${l}</span><div class="bar"><i style="width:${s.total ? v / s.total * 100 : 0}%"></i></div><div><b class="num">${v}</b>${i ? `<small>${pct(v, base)}% del paso anterior</small>` : ''}</div></div>`).join('')}</div></section>
   </div>
   <div class="g2">
-    <section class="card pad"><div class="h2row"><h2>Avance por ${byType ? 'tipo' : 'grupo'}</h2><div class="segmini"><button class="${byType ? '' : 'on'}" data-act="by" data-k="grupo">Por grupo</button><button class="${byType ? 'on' : ''}" data-act="by" data-k="tipo">Por tipo</button></div></div>${rows.length ? `<div class="twrap"><table><thead><tr><th>${byType ? 'Tipo' : 'Grupo'}</th><th class="num">Enviadas</th><th class="num">Confirmadas</th><th>Tasa</th><th class="num">Asistentes</th><th class="num">Llegaron</th></tr></thead><tbody>
-      ${rows.map(r => `<tr><td><b class="tcell">${label(r.gr)}</b></td><td class="num">${r.s}</td><td class="num">${r.c}</td><td><div style="display:flex;align-items:center;gap:8px"><div class="bar"><i style="width:${pct(r.c, r.s)}%"></i></div><span class="num">${pct(r.c, r.s)}%</span></div></td><td class="num">${r.used} de ${r.seats}</td><td class="num">${r.arr}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty"><b>Aún no hay invitaciones enviadas</b>Activa y descarga invitaciones en el paso 2.</div>'}</section>
+    <section class="card pad"><div class="h2row"><h2>Avance por ${byType ? 'tipo' : 'grupo'}</h2><div class="segmini"><button class="${byType ? '' : 'on'}" data-act="by" data-k="grupo">Por grupo</button><button class="${byType ? 'on' : ''}" data-act="by" data-k="tipo">Por tipo</button></div></div>${rows.length ? `<div class="twrap"><table><thead><tr><th>${byType ? 'Tipo' : 'Grupo'}</th><th class="num hide-m">Enviadas</th><th class="num">Confirmadas</th><th>Tasa</th><th class="num hide-m">Asistentes</th><th class="num hide-m">Llegaron</th></tr></thead><tbody>
+      ${rows.map(r => `<tr><td><b class="tcell">${label(r.gr)}</b></td><td class="num hide-m">${r.s}</td><td class="num">${r.c}<span class="m-of"> de ${r.s}</span></td><td><div style="display:flex;align-items:center;gap:8px"><div class="bar"><i style="width:${pct(r.c, r.s)}%"></i></div><span class="num">${pct(r.c, r.s)}%</span></div></td><td class="num hide-m">${r.used} de ${r.seats}</td><td class="num hide-m">${r.arr}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty"><b>Aún no hay invitaciones enviadas</b>Activa y descarga invitaciones en el paso 2.</div>'}</section>
     <section class="card pad"><h2>Actividad reciente</h2>${feed.length ? `<div class="feed">${feed.map(f => `<div class="fi"><span class="ic ${f.k}">${f.k === 'c' ? '✓' : '→'}</span><div><b>${esc(f.name)}</b><small>${f.k === 'c' ? 'Confirmó · pase de ' + esc(f.g.name) : 'Llegó con ' + plural(f.n, 'persona', 'personas') + ' · ' + esc(f.gate || '')}</small></div><span class="t">${fmtTime(f.at)}</span></div>`).join('')}</div>` : '<div class="empty"><b>Sin actividad todavía</b>Usa "Simular confirmaciones" o confirma desde la vista del invitado.</div>'}</section>
   </div>`;
 }
@@ -1330,8 +1508,8 @@ function viewEquipo(){
     <div class="card">${ico('scan')}<b>Lector de acceso</b><p>Solo escanea pases en la puerta desde su celular. No ve datos de contacto.</p></div>
     <div class="card">${ico('chart')}<b>Solo métricas</b><p>Consulta el avance de confirmación sin poder modificar nada.</p></div>
   </div>
-  <div class="card twrap"><table><thead><tr><th>Nombre</th><th>Rol</th><th>Puerta</th><th>Confidencialidad</th><th>Estado</th></tr></thead><tbody>
-    ${team.map(u => `<tr><td><b>${esc(u.name)}</b><small>${esc(u.email)}</small></td><td><span class="chip ${u.role === 'admin' ? 'act' : u.role === 'lector' ? 'sent' : 'pend'}">${ROLE[u.role]}</span></td><td>${esc(u.gate) || '<span class="muted">·</span>'}</td><td>${conf(u)}</td><td><span class="chip full">Activo</span></td></tr>`).join('')}
+  <div class="card twrap"><table class="stack"><thead><tr><th>Nombre</th><th>Rol</th><th>Puerta</th><th>Confidencialidad</th><th>Estado</th></tr></thead><tbody>
+    ${team.map(u => `<tr><td><b>${esc(u.name)}</b><small>${esc(u.email)}</small></td><td data-label="Rol"><span class="chip ${u.role === 'admin' ? 'act' : u.role === 'lector' ? 'sent' : 'pend'}">${ROLE[u.role]}</span></td><td data-label="Puerta">${esc(u.gate) || '<span class="muted">·</span>'}</td><td data-label="Confidencialidad">${conf(u)}</td><td data-label="Estado"><span class="chip full">Activo</span></td></tr>`).join('')}
   </tbody></table></div>`;
 }
 const emptyCamps = () => `<div class="card empty" style="padding:56px"><b>Esta organización aún no tiene campañas</b>Crea la primera para diseñar su invitación.<div style="margin-top:16px"><button class="btn primary" data-act="newCamp">+ Nueva campaña</button></div></div>`;
@@ -1466,7 +1644,7 @@ function afterRender(view){
 }
 function drawLoginArt(){ const cv = $('#lgInv'); if (cv){ const c = S.campaigns[0], g = sampleGuest(c); drawInvitation(cv, g, designOf(c, g), .5); } }
 function go(h){ if (location.hash === h) render(); else location.hash = h; }
-window.addEventListener('hashchange', () => { UI.menu = null; render(); window.scrollTo(0, 0); });
+window.addEventListener('hashchange', () => { UI.menu = null; UI.drawer = false; render(); window.scrollTo(0, 0); });
 window.addEventListener('storage', e => {
   if (e.key !== KEY) return;
   S = load();
@@ -1522,14 +1700,17 @@ const ACTIONS = {
   logout(){ camOff(); lsDel(SKEY); UI.loginRole = null; location.hash = '#/'; render(); },
   theme(){ setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'); render(); },
   menu: d => { UI.menu = UI.menu === d.m ? null : d.m; render(); },
-  tenant: d => { S.tenantId = d.id; const c = camps()[0]; S.campaignId = c ? c.id : null; UI.menu = null; UI.sel.clear(); UI.ty = UI.type = ''; save(); go('#/app/panorama'); toast('Ahora ves ' + tenant().name); },
+  tenant: d => { S.tenantId = d.id; const c = camps()[0]; S.campaignId = c ? c.id : null; UI.menu = null; UI.drawer = false; UI.sel.clear(); UI.ty = UI.type = ''; save(); go('#/app/panorama'); toast('Ahora ves ' + tenant().name); },
   demoOnly(){ UI.menu = null; render(); toast('En la demo las organizaciones vienen precargadas.'); },
-  pickCamp: d => { S.campaignId = d.id; UI.menu = null; UI.sel.clear(); UI.pv = UI.ty = UI.type = ''; save(); render(); },
+  pickCamp: d => { S.campaignId = d.id; UI.menu = null; UI.drawer = false; UI.sel.clear(); UI.pv = UI.ty = UI.type = ''; save(); render(); },
   openCamp: d => { S.campaignId = d.id; UI.sel.clear(); UI.pv = UI.ty = UI.type = ''; save(); go(camp().status === 'borrador' ? '#/app/estudio' : '#/app/metricas'); },
   goCamp: d => { S.campaignId = d.id; save(); },
-  newCamp(){ UI.menu = null; UI.newTpl = 'gala'; openModal(newCampHtml(), true); },
+  async install(){ if (!installEvt) return; installEvt.prompt(); try { await installEvt.userChoice; } catch (e){} installEvt = null; render(); },
+  noInstall(){ lsSet('atrio_noinstall', '1'); render(); },
+  drawer(){ UI.drawer = !UI.drawer; const a = $('.app'); if (a) a.classList.toggle('drawer-open', UI.drawer); },
+  newCamp(){ UI.menu = null; if (UI.drawer) ACTIONS.drawer(); UI.newTpl = 'gala'; openModal(newCampHtml(), true); },
   pickTpl: d => { UI.newTpl = d.k; $$('.tplpick button').forEach(b => b.classList.toggle('on', b.dataset.k === d.k)); },
-  reset(){ if (!confirm('Se restauran los datos de ejemplo de la demo. ¿Continuar?')) return; S = seedState(); UI.sel.clear(); UI.q = UI.group = UI.status = UI.type = UI.ty = UI.pv = ''; UI.by = 'grupo'; UI.ai = null; LX.log = []; save(); go('#/app/panorama'); toast('Demo restaurada'); },
+  reset(){ if (!confirm('Se restauran los datos de ejemplo de la demo. ¿Continuar?')) return; S = seedState(); UI.sel.clear(); UI.drawer = false; UI.q = UI.group = UI.status = UI.type = UI.ty = UI.pv = ''; UI.by = 'grupo'; UI.ai = null; LX.log = []; save(); go('#/app/panorama'); toast('Demo restaurada'); },
   tab: d => { UI.tab = d.k; render(); },
   stage: d => { UI.stage = d.k; render(); },
   tpl: d => { const c = camp(); Object.assign(styleTarget(c), tplStyle(d.k)); save(); render(); toast('Plantilla ' + TPL[d.k].name + ' aplicada' + (types(c).length > 1 ? ' al tipo ' + editType(c).name : '')); },
@@ -1781,6 +1962,8 @@ function toast(msg, err){ const t = $('#toast'); t.textContent = msg; t.classNam
 /* =================== Arranque =================== */
 setTheme(lsGet(TKEY, null) || (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 lsDel('atrio_demo_v2');
+// Instalable como app: el service worker solo aplica en http(s), no al abrir el archivo local
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 if (!lsGet(KEY, null)) save();
 render();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => {

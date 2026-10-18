@@ -13,6 +13,10 @@ Confidencialidad: en su primer ingreso el administrador acepta el convenio de co
 tratamiento de datos en nombre de su organización, el lector acepta un compromiso breve y cada invitado
 ve un aviso de privacidad en su página de confirmación. El texto es un borrador de ejemplo.
 
+En el celular se comporta como app: barra de pestañas abajo, menú deslizable, invitados en tarjetas y
+ventanas que suben desde abajo. Se puede instalar en la pantalla de inicio (Android: "Instalar app";
+iPhone: Compartir, "Agregar a inicio") y abre sin conexión con lo último que se cargó.
+
 Acceso de prueba: administrador `admin / demo2026`, lector `lector / puerta2026`.
 Es una demo sin servidor: los datos viven en el navegador de quien la abre. Los invitados de ejemplo
 son los mismos en cualquier navegador, así que el lector de un celular reconoce las invitaciones de la demo.

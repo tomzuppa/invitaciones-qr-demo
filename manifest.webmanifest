@@ -1,0 +1,21 @@
+{
+  "name": "Atrio · Invitaciones",
+  "short_name": "Atrio",
+  "description": "Invitaciones con QR, confirmación en vivo y acceso en puerta. Una plataforma de Baobyte.",
+  "lang": "es-MX",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a1424",
+  "theme_color": "#0a1424",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Lector de acceso", "short_name": "Lector", "url": "./#/lector", "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Métricas", "url": "./#/app/metricas", "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
